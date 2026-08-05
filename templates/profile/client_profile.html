@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Моят профил - BGMaistor{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 100px; margin-bottom: 60px;">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="bi bi-person-circle"></i> Моят профил</h3>
+                </div>
+                <div class="card-body p-4">
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="row mb-4">
+                        <div class="col-md-3 text-center">
+                            {% if client.avatar %}
+                            <img src="{{ client.avatar.url }}" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover;" alt="Avatar">
+                            {% else %}
+                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto" style="width: 120px; height: 120px; font-size: 48px;">
+                                {{ user.first_name.0 }}{{ user.last_name.0 }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-9">
+                            <h4>{{ user.get_full_name }}</h4>
+                            <p class="text-muted mb-2">
+                                <i class="bi bi-envelope"></i> {{ user.email }}
+                            </p>
+                            <p class="text-muted">
+                                <i class="bi bi-calendar"></i> Член от {{ client.created_at|date:"d.m.Y" }}
+                            </p>
+                        </div>
+                    </div>
+
+                    {% if client.bio %}
+                    <div class="mb-4">
+                        <h5>За мен</h5>
+                        <p>{{ client.bio }}</p>
+                    </div>
+                    {% endif %}
+
+                    <hr>
+
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle"></i> <strong>Клиентски акаунт</strong>
+                        <p class="mb-0 mt-2">Като клиент можете да оставяте отзиви и коментари за професионалистите на платформата.</p>
+                    </div>
+
+                    <div class="mt-4">
+                        <a href="#" class="btn btn-primary">
+                            <i class="bi bi-pencil"></i> Редактирай профила
+                        </a>
+                        <a href="{% url 'logout' %}" class="btn btn-outline-secondary">
+                            <i class="bi bi-box-arrow-right"></i> Изход
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

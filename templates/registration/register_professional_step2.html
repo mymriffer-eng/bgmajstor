@@ -1,0 +1,375 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Създаване на профил - Стъпка 2 - BGMaistor{% endblock %}
+
+{% block extra_css %}
+<style>
+    .register-hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 3rem 2rem 4rem;
+        text-align: center;
+        color: white;
+        margin-top: 80px;
+    }
+    
+    .register-hero h1 {
+        font-size: 2.2rem;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+    }
+    
+    .register-hero p {
+        font-size: 1.1rem;
+        opacity: 0.95;
+    }
+    
+    .steps {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+    
+    .step {
+        text-align: center;
+    }
+    
+    .step-number {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 0.5rem;
+        font-weight: 700;
+    }
+    
+    .step.active .step-number {
+        background: white;
+        color: #667eea;
+    }
+    
+    .step-label {
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+    
+    .step.active .step-label {
+        opacity: 1;
+        font-weight: 600;
+    }
+    
+    .form-container {
+        max-width: 800px;
+        margin: -2rem auto 4rem;
+        padding: 0 2rem;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .form-card {
+        background: white;
+        border-radius: 20px;
+        padding: 3rem;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+    
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #2d3748;
+    }
+    
+    .form-control {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 1rem;
+        font-family: inherit;
+        transition: all 0.3s;
+        background: #f8fafc;
+    }
+    
+    .form-control:focus {
+        outline: none;
+        border-color: #667eea;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    textarea.form-control {
+        resize: vertical;
+        min-height: 120px;
+    }
+    
+    .char-counter {
+        text-align: right;
+        font-size: 0.875rem;
+        color: #718096;
+        margin-top: 0.25rem;
+    }
+    
+    .helptext {
+        display: block;
+        font-size: 0.875rem;
+        color: #718096;
+        margin-top: 0.25rem;
+    }
+    
+    .errorlist {
+        list-style: none;
+        padding: 0;
+        margin: 0.5rem 0 0;
+    }
+    
+    .errorlist li {
+        color: #e53e3e;
+        font-size: 0.875rem;
+        padding: 0.25rem 0;
+    }
+    
+    .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 1rem;
+        background: #f8fafc;
+        border-radius: 10px;
+    }
+    
+    .category-checkbox {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .category-checkbox input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+    
+    .category-checkbox label {
+        cursor: pointer;
+        margin: 0;
+        font-weight: normal;
+    }
+    
+    .btn-submit {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        transition: all 0.3s;
+        margin-top: 1rem;
+    }
+    
+    .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+    
+    .section-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #2d3748;
+        margin: 2rem 0 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #e2e8f0;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="breadcrumbs">
+    <a href="{% url 'home' %}">Начало</a> / 
+    <a href="{% url 'register_choice' %}">Регистрация</a> / 
+    <span>Създаване на профил</span>
+</div>
+
+<section class="register-hero">
+    <h1>🔧 Създаване на професионален профил</h1>
+    <p>Попълнете информацията за вашия професионален профил</p>
+    
+    <div class="steps">
+        <div class="step">
+            <div class="step-number">✓</div>
+            <div class="step-label">Акаунт</div>
+        </div>
+        <div class="step active">
+            <div class="step-number">2</div>
+            <div class="step-label">Профил</div>
+        </div>
+    </div>
+</section>
+
+<div class="form-container">
+    <div class="form-card">
+        <h2 style="margin-bottom: 1.5rem; color: #2d3748;">Стъпка 2: Създайте вашия профил</h2>
+        
+        <form method="post" id="profileForm">
+            {% csrf_token %}
+            
+            <!-- Основна информация -->
+            <div class="section-title">📋 Основна информация</div>
+            
+            <div class="form-group">
+                {{ form.title.label_tag }}
+                {{ form.title }}
+                {% if form.title.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.title.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                {{ form.description.label_tag }}
+                {{ form.description }}
+                <div class="char-counter">
+                    <span id="charCount">0</span> / 2000 символа
+                </div>
+                {% if form.description.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.description.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <!-- Категории -->
+            <div class="section-title">🔧 Категории услуги</div>
+            
+            <div class="form-group">
+                <label>{{ form.categories.label }}</label>
+                <div class="categories-grid">
+                    {% for checkbox in form.categories %}
+                        <div class="category-checkbox">
+                            {{ checkbox.tag }}
+                            <label for="{{ checkbox.id_for_label }}">{{ checkbox.choice_label }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% if form.categories.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.categories.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <!-- Контактна информация -->
+            <div class="section-title">📞 Контактна информация</div>
+            
+            <div class="form-group">
+                {{ form.phone.label_tag }}
+                {{ form.phone }}
+                {% if form.phone.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.phone.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.email.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                {{ form.website.label_tag }}
+                {{ form.website }}
+                {% if form.website.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.website.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                {{ form.facebook.label_tag }}
+                {{ form.facebook }}
+                {% if form.facebook.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.facebook.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <!-- Локация -->
+            <div class="section-title">📍 Локация</div>
+            
+            <div class="form-group">
+                {{ form.city.label_tag }}
+                {{ form.city }}
+                {% if form.city.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.city.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                {{ form.address.label_tag }}
+                {{ form.address }}
+                {% if form.address.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.address.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <button type="submit" class="btn-submit">✓ Завърши регистрацията</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Character counter for description
+    const descriptionField = document.getElementById('id_description');
+    const charCount = document.getElementById('charCount');
+    
+    if (descriptionField) {
+        descriptionField.addEventListener('input', function() {
+            charCount.textContent = this.value.length;
+        });
+        // Initial count
+        charCount.textContent = descriptionField.value.length;
+    }
+</script>
+{% endblock %}

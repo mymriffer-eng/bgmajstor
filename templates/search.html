@@ -1,0 +1,345 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{% if selected_category and selected_city %}
+{{ selected_category.name }} в {{ selected_city.name }} - BGMaistor
+{% elif selected_category %}
+{{ selected_category.name }} - BGMaistor
+{% elif selected_city %}
+Професионалисти в {{ selected_city.name }} - BGMaistor
+{% else %}
+Търсене на професионалисти - BGMaistor
+{% endif %}
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .search-hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 3rem 0 2rem;
+        color: white;
+    }
+    
+    .search-hero h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+    
+    .search-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 15px;
+    }
+    
+    .search-filters {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
+    }
+    
+    .search-filters form {
+        display: grid;
+        grid-template-columns: 1fr 1fr auto;
+        gap: 1rem;
+        align-items: end;
+    }
+    
+    .search-filters select {
+        padding: 0.75rem 1rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .search-filters select:focus {
+        outline: none;
+        border-color: #667eea;
+    }
+    
+    .search-filters button {
+        padding: 0.75rem 2rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .search-filters button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    }
+    
+    .results-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+    }
+    
+    .results-count {
+        font-size: 1.1rem;
+        color: #4a5568;
+    }
+    
+    .results-count strong {
+        color: #667eea;
+        font-weight: 700;
+    }
+    
+    .professionals-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2rem;
+    }
+    
+    .professional-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s ease;
+        display: block;
+    }
+    
+    .professional-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        color: inherit;
+    }
+    
+    .prof-header {
+        display: flex;
+        align-items: start;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .prof-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+    
+    .prof-info h3 {
+        margin: 0 0 0.5rem 0;
+        color: #2d3748;
+        font-size: 1.25rem;
+    }
+    
+    .prof-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        font-size: 0.9rem;
+        color: #718096;
+    }
+    
+    .prof-meta span {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+    
+    .prof-description {
+        color: #4a5568;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    .prof-categories {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .prof-category {
+        background: #f0f4ff;
+        color: #667eea;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+    
+    .prof-footer {
+        padding-top: 1rem;
+        border-top: 2px solid #e2e8f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .prof-images-count {
+        font-size: 0.9rem;
+        color: #718096;
+    }
+    
+    .prof-view-btn {
+        color: #667eea;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .empty-state-icon {
+        font-size: 5rem;
+        margin-bottom: 1rem;
+        opacity: 0.3;
+    }
+    
+    .empty-state h3 {
+        color: #2d3748;
+        margin-bottom: 0.5rem;
+    }
+    
+    .empty-state p {
+        color: #718096;
+        margin-bottom: 2rem;
+    }
+    
+    @media (max-width: 768px) {
+        .search-filters form {
+            grid-template-columns: 1fr;
+        }
+        
+        .professionals-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="search-hero">
+    <h1>
+        {% if selected_category and selected_city %}
+        {{ selected_category.icon }} {{ selected_category.name }} в {{ selected_city.name }}
+        {% elif selected_category %}
+        {{ selected_category.icon }} {{ selected_category.name }}
+        {% elif selected_city %}
+        Професионалисти в {{ selected_city.name }}
+        {% else %}
+        🔍 Търсене на професионалисти
+        {% endif %}
+    </h1>
+</div>
+
+<div class="search-container">
+    <!-- Search Filters -->
+    <div class="search-filters">
+        <form action="{% url 'search' %}" method="get">
+            <div>
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #4a5568;">Категория</label>
+                <select name="category">
+                    <option value="">Всички категории</option>
+                    {% for cat in categories %}
+                    <option value="{{ cat.slug }}" {% if selected_category and selected_category.slug == cat.slug %}selected{% endif %}>
+                        {{ cat.icon }} {{ cat.name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div>
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #4a5568;">Град</label>
+                <select name="city">
+                    <option value="">Всички градове</option>
+                    {% for city in cities %}
+                    <option value="{{ city.slug }}" {% if selected_city and selected_city.slug == city.slug %}selected{% endif %}>
+                        {{ city.name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <button type="submit">🔍 Търси</button>
+        </form>
+    </div>
+    
+    <!-- Results Header -->
+    <div class="results-header">
+        <div class="results-count">
+            Намерени <strong>{{ professionals.count }}</strong> {% if professionals.count == 1 %}професионалист{% else %}професионалисти{% endif %}
+        </div>
+    </div>
+    
+    <!-- Results Grid -->
+    {% if professionals %}
+    <div class="professionals-grid">
+        {% for prof in professionals %}
+        <a href="{% url 'professional_profile' prof.slug %}" class="professional-card">
+            <div class="prof-header">
+                <div class="prof-avatar">
+                    {{ prof.user.first_name.0 }}{{ prof.user.last_name.0 }}
+                </div>
+                <div class="prof-info">
+                    <h3>{{ prof.title }}</h3>
+                    <div class="prof-meta">
+                        {% if prof.city %}
+                        <span>📍 {{ prof.city }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <p class="prof-description">{{ prof.description }}</p>
+            
+            {% if prof.categories.exists %}
+            <div class="prof-categories">
+                {% for cat in prof.categories.all %}
+                <span class="prof-category">{{ cat.icon }} {{ cat.name }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            <div class="prof-footer">
+                <span class="prof-images-count">📷 {{ prof.images_count }} снимки</span>
+                <span class="prof-view-btn">Виж профил →</span>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <div class="empty-state-icon">🔍</div>
+        <h3>Няма намерени професионалисти</h3>
+        <p>Опитайте с други критерии за търсене</p>
+        <a href="{% url 'home' %}" style="color: #667eea; font-weight: 600; text-decoration: none;">← Обратно към началото</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

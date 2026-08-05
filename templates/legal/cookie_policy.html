@@ -1,0 +1,397 @@
+{% extends 'base.html' %}
+
+{% block title %}Политика за бисквитки - BGMaistor{% endblock %}
+
+{% block content %}
+<style>
+    .legal-page {
+        min-height: 100vh;
+        padding: 8rem 2rem 4rem;
+        background: var(--bg-primary);
+    }
+    
+    .legal-container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: white;
+        padding: 3rem;
+        border-radius: 16px;
+        box-shadow: var(--shadow-md);
+    }
+    
+    .legal-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid var(--border-light);
+    }
+    
+    .legal-header h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--navy-primary);
+        margin-bottom: 1rem;
+    }
+    
+    .legal-date {
+        color: var(--text-light);
+        font-size: 0.95rem;
+    }
+    
+    .legal-content h2 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--navy-primary);
+        margin: 2.5rem 0 1rem;
+    }
+    
+    .legal-content h3 {
+        font-size: 1.35rem;
+        font-weight: 600;
+        color: var(--navy-secondary);
+        margin: 2rem 0 1rem;
+    }
+    
+    .legal-content p {
+        color: var(--text-secondary);
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+    }
+    
+    .legal-content ul, .legal-content ol {
+        margin: 1.5rem 0 1.5rem 2rem;
+        color: var(--text-secondary);
+        line-height: 1.8;
+    }
+    
+    .legal-content li {
+        margin-bottom: 0.75rem;
+    }
+    
+    .legal-content strong {
+        color: var(--navy-primary);
+        font-weight: 600;
+    }
+    
+    .legal-content table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 2rem 0;
+    }
+    
+    .legal-content table th {
+        background: var(--navy-primary);
+        color: white;
+        padding: 1rem;
+        text-align: left;
+        font-weight: 600;
+    }
+    
+    .legal-content table td {
+        padding: 1rem;
+        border: 1px solid var(--border-light);
+    }
+    
+    .legal-content table tr:nth-child(even) {
+        background: var(--bg-gray);
+    }
+    
+    .highlight-box {
+        background: var(--orange-light);
+        border-left: 4px solid var(--orange-accent);
+        padding: 1.5rem;
+        margin: 2rem 0;
+        border-radius: 8px;
+    }
+    
+    .highlight-box p:last-child {
+        margin-bottom: 0;
+    }
+    
+    .back-link {
+        display: inline-block;
+        color: var(--orange-accent);
+        text-decoration: none;
+        font-weight: 600;
+        margin-top: 3rem;
+        transition: color 0.2s ease;
+    }
+    
+    .back-link:hover {
+        color: var(--orange-hover);
+    }
+    
+    @media (max-width: 768px) {
+        .legal-page {
+            padding: 6rem 1rem 2rem;
+        }
+        
+        .legal-container {
+            padding: 2rem 1.5rem;
+        }
+        
+        .legal-header h1 {
+            font-size: 2rem;
+        }
+        
+        .legal-content h2 {
+            font-size: 1.5rem;
+        }
+        
+        .legal-content table {
+            font-size: 0.9rem;
+        }
+        
+        .legal-content table th,
+        .legal-content table td {
+            padding: 0.75rem 0.5rem;
+        }
+    }
+</style>
+
+<div class="legal-page">
+    <div class="legal-container">
+        <div class="legal-header">
+            <h1>Политика за бисквитки</h1>
+            <p class="legal-date">Последна актуализация: Юни 2026</p>
+        </div>
+        
+        <div class="legal-content">
+            <div class="highlight-box">
+                <p><strong>Какво са бисквитките?</strong> Бисквитките (cookies) са малки текстови файлове, които уебсайтовете съхраняват на вашето устройство за подобряване на потребителското изживяване.</p>
+            </div>
+            
+            <h2>1. Въведение</h2>
+            <p>BGMaistor използва бисквитки и подобни технологии за подобряване на функционалността на платформата, анализ на трафика и персонализиране на съдържанието. Тази политика обяснява какви бисквитки използваме и как можете да ги управлявате.</p>
+            
+            <h2>2. Какво са бисквитките</h2>
+            <p>Бисквитките са малки текстови файлове, които браузърът ви съхранява на компютъра или мобилното устройство при посещение на уебсайт. Те позволяват на сайта да "запомня" вашите действия и предпочитания за определен период.</p>
+            
+            <h3>2.1. Типове бисквитки по продължителност</h3>
+            <ul>
+                <li><strong>Сесийни бисквитки</strong> - временни, изтриват се след затваряне на браузъра</li>
+                <li><strong>Постоянни бисквитки</strong> - остават на устройството за определен период</li>
+            </ul>
+            
+            <h3>2.2. Типове бисквитки по произход</h3>
+            <ul>
+                <li><strong>Първични бисквитки</strong> - поставени от BGMaistor</li>
+                <li><strong>Трети страни</strong> - поставени от външни доставчици (Google Analytics, реклами)</li>
+            </ul>
+            
+            <h2>3. Какви бисквитки използваме</h2>
+            
+            <h3>3.1. Строго необходими бисквитки</h3>
+            <p>Тези бисквитки са задължителни за функционирането на платформата:</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Име</th>
+                        <th>Цел</th>
+                        <th>Продължителност</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>sessionid</td>
+                        <td>Управление на потребителска сесия и вход</td>
+                        <td>2 седмици</td>
+                    </tr>
+                    <tr>
+                        <td>csrftoken</td>
+                        <td>Защита срещу CSRF атаки</td>
+                        <td>1 година</td>
+                    </tr>
+                    <tr>
+                        <td>cookie_consent</td>
+                        <td>Запис на вашия избор за бисквитки</td>
+                        <td>1 година</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>3.2. Функционални бисквитки</h3>
+            <p>Подобряват функционалността и персонализацията:</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Име</th>
+                        <th>Цел</th>
+                        <th>Продължителност</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>language</td>
+                        <td>Запомняне на предпочитан език</td>
+                        <td>1 година</td>
+                    </tr>
+                    <tr>
+                        <td>location</td>
+                        <td>Запомняне на предпочитан град/регион</td>
+                        <td>30 дни</td>
+                    </tr>
+                    <tr>
+                        <td>theme</td>
+                        <td>Запомняне на визуални настройки</td>
+                        <td>1 година</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>3.3. Аналитични бисквитки</h3>
+            <p>Помагат ни да разберем как използвате платформата:</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Доставчик</th>
+                        <th>Цел</th>
+                        <th>Продължителност</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Google Analytics (_ga, _gid)</td>
+                        <td>Анализ на посещаемост и поведение</td>
+                        <td>2 години / 24 часа</td>
+                    </tr>
+                    <tr>
+                        <td>Hotjar</td>
+                        <td>Записи на сесии и heatmaps</td>
+                        <td>1 година</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>3.4. Маркетингови бисквитки</h3>
+            <p>Използват се за показване на релевантна реклама:</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Доставчик</th>
+                        <th>Цел</th>
+                        <th>Продължителност</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Google Ads</td>
+                        <td>Таргетирана реклама и ретаргетинг</td>
+                        <td>До 2 години</td>
+                    </tr>
+                    <tr>
+                        <td>Facebook Pixel</td>
+                        <td>Социални медии реклами</td>
+                        <td>До 2 години</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h2>4. Защо използваме бисквитки</h2>
+            
+            <h3>4.1. Основни функции</h3>
+            <ul>
+                <li>Запазване на вашия вход (login session)</li>
+                <li>Запомняне на предпочитания (град, език)</li>
+                <li>Осигуряване на сигурност</li>
+                <li>Подобряване на скоростта на зареждане</li>
+            </ul>
+            
+            <h3>4.2. Анализ и подобряване</h3>
+            <ul>
+                <li>Разбиране на начина на използване на платформата</li>
+                <li>Идентифициране на проблеми и грешки</li>
+                <li>Тестване на нови функции</li>
+                <li>Оптимизация на производителността</li>
+            </ul>
+            
+            <h3>4.3. Персонализация</h3>
+            <ul>
+                <li>Показване на релевантни услуги за вашия регион</li>
+                <li>Препоръки за професионалисти</li>
+                <li>Съхранение на търсения и филтри</li>
+            </ul>
+            
+            <h2>5. Управление на бисквитките</h2>
+            
+            <h3>5.1. Настройки на браузъра</h3>
+            <p>Можете да контролирате и изтривате бисквитки чрез настройките на вашия браузър:</p>
+            
+            <ul>
+                <li><strong>Google Chrome:</strong> Настройки → Поверителност и сигурност → Бисквитки</li>
+                <li><strong>Mozilla Firefox:</strong> Настройки → Поверителност и сигурност → Бисквитки и данни</li>
+                <li><strong>Safari:</strong> Предпочитания → Поверителност → Управление на данни</li>
+                <li><strong>Microsoft Edge:</strong> Настройки → Бисквитки и разрешения</li>
+            </ul>
+            
+            <h3>5.2. Отказ от аналитични бисквитки</h3>
+            <p>За да откажете специфични аналитични услуги:</p>
+            <ul>
+                <li><strong>Google Analytics:</strong> <a href="https://tools.google.com/dlpage/gaoptout" target="_blank">Browser Add-on за отказ</a></li>
+                <li><strong>Hotjar:</strong> <a href="https://www.hotjar.com/policies/do-not-track/" target="_blank">Do Not Track настройка</a></li>
+            </ul>
+            
+            <h3>5.3. Последици от изключването</h3>
+            <p>Ако изключите бисквитките, някои функции може да не работят правилно:</p>
+            <ul>
+                <li>Няма да можете да останете влезли автоматично</li>
+                <li>Ще трябва да въвеждате предпочитания отново</li>
+                <li>Персонализацията ще бъде ограничена</li>
+                <li>Някои функции може да бъдат недостъпни</li>
+            </ul>
+            
+            <h2>6. Бисквитки от трети страни</h2>
+            <p>Някои бисквитки се поставят от външни услуги, които се появяват на нашите страници:</p>
+            
+            <h3>6.1. Социални медии</h3>
+            <ul>
+                <li>Facebook - споделяне и лайкване</li>
+                <li>LinkedIn - професионални връзки</li>
+                <li>Instagram - визуална галерия</li>
+            </ul>
+            
+            <h3>6.2. Вградено съдържание</h3>
+            <ul>
+                <li>YouTube видеа</li>
+                <li>Google Maps</li>
+                <li>Външни галерии</li>
+            </ul>
+            
+            <p><em>Тези трети страни имат собствени политики за поверителност и бисквитки.</em></p>
+            
+            <h2>7. Актуализации на политиката</h2>
+            <p>Можем да актуализираме тази политика периодично за отразяване на промени в технологиите или законодателството. Значителни промени ще бъдат обявени на платформата.</p>
+            
+            <h2>8. Вашите права</h2>
+            <p>Съгласно GDPR имате право:</p>
+            <ul>
+                <li>Да бъдете информирани за използването на бисквитки</li>
+                <li>Да дадете или оттеглите съгласие</li>
+                <li>Да поискате изтриване на бисквитки</li>
+                <li>Да ограничите определени видове бисквитки</li>
+            </ul>
+            
+            <h2>9. Контакти</h2>
+            <p>За въпроси относно нашата политика за бисквитки:</p>
+            <ul>
+                <li><strong>Имейл:</strong> privacy@bgmajstor.eu</li>
+                <li><strong>Формуляр:</strong> <a href="{% url 'contact' %}">Страница за контакти</a></li>
+            </ul>
+            
+            <h2>10. Допълнителна информация</h2>
+            <p>За повече информация за защитата на личните данни вижте:</p>
+            <ul>
+                <li><a href="{% url 'privacy_policy' %}">Политика за поверителност</a></li>
+                <li><a href="{% url 'gdpr' %}">GDPR информация</a></li>
+                <li><a href="{% url 'terms_of_service' %}">Условия за ползване</a></li>
+            </ul>
+            
+            <a href="{% url 'home' %}" class="back-link">← Обратно към началната страница</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

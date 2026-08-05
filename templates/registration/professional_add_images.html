@@ -1,0 +1,478 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Управление на снимки - {{ professional.title }} - BGMaistor{% endblock %}
+
+{% block extra_css %}
+<style>
+    .images-hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 4rem 0 3rem;
+        color: white;
+        text-align: center;
+    }
+    
+    .images-hero h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+    
+    .images-hero p {
+        font-size: 1.1rem;
+        opacity: 0.95;
+    }
+    
+    .images-container {
+        max-width: 1200px;
+        margin: -3rem auto 4rem;
+        padding: 0 15px;
+    }
+    
+    .images-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+    
+    .images-main {
+        padding: 3rem;
+    }
+    
+    .images-sidebar {
+        background: #f8fafc;
+        padding: 2rem;
+    }
+    
+    .stats-box {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 15px;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .stats-box h3 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin: 0;
+    }
+    
+    .stats-box p {
+        margin: 0.5rem 0 0;
+        opacity: 0.95;
+    }
+    
+    .upload-zone {
+        border: 3px dashed #e2e8f0;
+        border-radius: 15px;
+        padding: 3rem 2rem;
+        text-align: center;
+        background: #f8fafc;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        margin-bottom: 2rem;
+    }
+    
+    .upload-zone:hover {
+        border-color: #667eea;
+        background: #f0f4ff;
+        transform: translateY(-2px);
+    }
+    
+    .upload-zone i {
+        font-size: 3.5rem;
+        color: #667eea;
+        margin-bottom: 1rem;
+        display: block;
+    }
+    
+    .upload-zone h5 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #2d3748;
+    }
+    
+    .upload-zone p {
+        color: #718096;
+        font-size: 0.95rem;
+        margin: 0;
+    }
+    
+    .image-preview-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+    
+    .preview-item {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        background: white;
+    }
+    
+    .preview-item img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        display: block;
+    }
+    
+    .preview-item input {
+        width: 100%;
+        border: none;
+        border-top: 2px solid #e2e8f0;
+        padding: 0.5rem;
+        font-size: 0.875rem;
+    }
+    
+    .preview-item input:focus {
+        outline: none;
+        border-top-color: #667eea;
+    }
+    
+    .current-images-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+    
+    .current-image-card {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        background: white;
+    }
+    
+    .current-image-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    
+    .current-image-card img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        display: block;
+    }
+    
+    .current-image-card .card-body {
+        padding: 1rem;
+    }
+    
+    .current-image-card .card-text {
+        font-size: 0.875rem;
+        color: #4a5568;
+        margin-bottom: 0.75rem;
+        min-height: 36px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    .btn-primary-custom {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 0.75rem 2rem;
+        border-radius: 30px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+    
+    .btn-primary-custom:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        color: white;
+    }
+    
+    .btn-danger-custom {
+        background: linear-gradient(135deg, #f56565 0%, #c53030 100%);
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.875rem;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+    
+    .btn-danger-custom:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(245, 101, 101, 0.4);
+        color: white;
+    }
+    
+    .btn-outline-custom {
+        border: 2px solid #667eea;
+        color: #667eea;
+        background: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 30px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+    
+    .btn-outline-custom:hover {
+        background: #667eea;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #2d3748;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .section-title i {
+        color: #667eea;
+    }
+    
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+    }
+    
+    .empty-state i {
+        font-size: 4rem;
+        color: #e2e8f0;
+        margin-bottom: 1rem;
+    }
+    
+    .empty-state p {
+        color: #a0aec0;
+        font-size: 1.1rem;
+    }
+    
+    @media (max-width: 992px) {
+        .images-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .images-sidebar {
+            order: -1;
+        }
+        
+        .images-hero h1 {
+            font-size: 2rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="images-hero">
+    <h1>📷 Управление на снимки</h1>
+    <p>{{ professional.title }}</p>
+</div>
+
+<div class="images-container">
+    <div class="images-grid">
+        <!-- Main Content -->
+        <div class="images-main">
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endfor %}
+            {% endif %}
+
+            {% if can_add_more %}
+            <!-- Upload Section -->
+            <div class="mb-5">
+                <h2 class="section-title">
+                    <i class="bi bi-cloud-arrow-up"></i>
+                    Добави нови снимки
+                </h2>
+                <form method="post" enctype="multipart/form-data" id="uploadForm">
+                    {% csrf_token %}
+                    <div class="upload-zone" onclick="document.getElementById('images').click()">
+                        <i class="bi bi-cloud-arrow-up"></i>
+                        <h5>Кликни или пусни снимки тук</h5>
+                        <p>До {{ remaining_images }} снимки | JPG, PNG, WebP | Max 5MB</p>
+                        <input type="file" 
+                               class="d-none" 
+                               id="images" 
+                               name="images" 
+                               accept="image/*" 
+                               multiple 
+                               required
+                               onchange="previewImages(event)">
+                    </div>
+
+                    <div id="image-previews" class="image-preview-grid"></div>
+
+                    <div class="text-center mt-4" id="uploadButton" style="display: none;">
+                        <button type="submit" class="btn-primary-custom">
+                            <i class="bi bi-upload me-2"></i> Качи снимки
+                        </button>
+                    </div>
+                </form>
+            </div>
+            {% else %}
+            <div class="alert alert-warning">
+                <i class="bi bi-exclamation-triangle me-2"></i> 
+                <strong>Максимум достигнат!</strong> Имате максималния брой снимки (20).
+                Изтрийте някои, за да добавите нови.
+            </div>
+            {% endif %}
+
+            <!-- Current Images Section -->
+            <div>
+                <h2 class="section-title">
+                    <i class="bi bi-images"></i>
+                    Качени снимки ({{ images.count }})
+                </h2>
+                {% if images %}
+                <div class="current-images-grid">
+                    {% for image in images %}
+                    <div class="current-image-card">
+                        <img src="{{ image.image.url }}" alt="{{ image.caption }}" loading="lazy">
+                        <div class="card-body">
+                            <p class="card-text">
+                                {% if image.caption %}
+                                {{ image.caption }}
+                                {% else %}
+                                <em class="text-muted">Без описание</em>
+                                {% endif %}
+                            </p>
+                            <form method="post" action="{% url 'delete_image' image.id %}" style="display: inline;" onsubmit="return confirm('Сигурни ли сте, че искате да изтриете тази снимка?');">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-danger-custom">
+                                    <i class="bi bi-trash"></i> Изтрий
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="empty-state">
+                    <i class="bi bi-image"></i>
+                    <p>Няма качени снимки все още.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="images-sidebar">
+            <div class="stats-box">
+                <h3>{{ images.count }}</h3>
+                <p>от 20 снимки</p>
+            </div>
+            
+            <div style="background: white; padding: 1.5rem; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 1.5rem;">
+                <h6 style="font-weight: 600; margin-bottom: 1rem; color: #2d3748;">👤 {{ professional.user.get_full_name }}</h6>
+                <p style="font-size: 0.875rem; color: #718096; margin: 0;">{{ professional.title }}</p>
+            </div>
+            
+            <a href="{% url 'professional_profile' professional.slug %}" class="btn-outline-custom" style="width: 100%; text-align: center;">
+                <i class="bi bi-eye me-2"></i> Виж профил
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+function previewImages(event) {
+    const previews = document.getElementById('image-previews');
+    const uploadButton = document.getElementById('uploadButton');
+    previews.innerHTML = '';
+    
+    const files = Array.from(event.target.files);
+    
+    if (files.length > 0) {
+        uploadButton.style.display = 'block';
+    }
+    
+    files.forEach((file, index) => {
+        if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const div = document.createElement('div');
+                div.className = 'preview-item';
+                div.innerHTML = `
+                    <img src="${e.target.result}" alt="Preview">
+                    <input type="text" 
+                           class="form-control form-control-sm" 
+                           name="caption_${index}" 
+                           placeholder="Описание (опционално)"
+                           maxlength="250">
+                `;
+                previews.appendChild(div);
+            };
+            
+            reader.readAsDataURL(file);
+        }
+    });
+}
+
+// Drag & drop functionality
+const uploadZone = document.querySelector('.upload-zone');
+const fileInput = document.getElementById('images');
+
+if (uploadZone && fileInput) {
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        uploadZone.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        uploadZone.addEventListener(eventName, highlight, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        uploadZone.addEventListener(eventName, unhighlight, false);
+    });
+
+    function highlight(e) {
+        uploadZone.style.borderColor = '#667eea';
+        uploadZone.style.background = '#f0f4ff';
+    }
+
+    function unhighlight(e) {
+        uploadZone.style.borderColor = '#e2e8f0';
+        uploadZone.style.background = '#f8fafc';
+    }
+
+    uploadZone.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        fileInput.files = files;
+        previewImages({ target: fileInput });
+    }
+}
+</script>
+{% endblock %}

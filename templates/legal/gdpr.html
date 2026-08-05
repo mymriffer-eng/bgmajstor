@@ -1,0 +1,393 @@
+{% extends 'base.html' %}
+
+{% block title %}GDPR - Защита на личните данни - BGMaistor{% endblock %}
+
+{% block content %}
+<style>
+    .legal-page {
+        min-height: 100vh;
+        padding: 8rem 2rem 4rem;
+        background: var(--bg-primary);
+    }
+    
+    .legal-container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: white;
+        padding: 3rem;
+        border-radius: 16px;
+        box-shadow: var(--shadow-md);
+    }
+    
+    .legal-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid var(--border-light);
+    }
+    
+    .legal-header h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--navy-primary);
+        margin-bottom: 1rem;
+    }
+    
+    .legal-date {
+        color: var(--text-light);
+        font-size: 0.95rem;
+    }
+    
+    .legal-content h2 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--navy-primary);
+        margin: 2.5rem 0 1rem;
+    }
+    
+    .legal-content h3 {
+        font-size: 1.35rem;
+        font-weight: 600;
+        color: var(--navy-secondary);
+        margin: 2rem 0 1rem;
+    }
+    
+    .legal-content p {
+        color: var(--text-secondary);
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+    }
+    
+    .legal-content ul, .legal-content ol {
+        margin: 1.5rem 0 1.5rem 2rem;
+        color: var(--text-secondary);
+        line-height: 1.8;
+    }
+    
+    .legal-content li {
+        margin-bottom: 0.75rem;
+    }
+    
+    .legal-content strong {
+        color: var(--navy-primary);
+        font-weight: 600;
+    }
+    
+    .highlight-box {
+        background: var(--orange-light);
+        border-left: 4px solid var(--orange-accent);
+        padding: 1.5rem;
+        margin: 2rem 0;
+        border-radius: 8px;
+    }
+    
+    .highlight-box p:last-child {
+        margin-bottom: 0;
+    }
+    
+    .info-box {
+        background: #E0F2FE;
+        border-left: 4px solid #0284C7;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        border-radius: 8px;
+    }
+    
+    .info-box p:last-child {
+        margin-bottom: 0;
+    }
+    
+    .rights-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+    
+    .right-card {
+        background: var(--bg-gray);
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 2px solid var(--border-light);
+    }
+    
+    .right-card h4 {
+        color: var(--navy-primary);
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+    }
+    
+    .right-card p {
+        margin-bottom: 0;
+        font-size: 0.95rem;
+    }
+    
+    .back-link {
+        display: inline-block;
+        color: var(--orange-accent);
+        text-decoration: none;
+        font-weight: 600;
+        margin-top: 3rem;
+        transition: color 0.2s ease;
+    }
+    
+    .back-link:hover {
+        color: var(--orange-hover);
+    }
+    
+    @media (max-width: 768px) {
+        .legal-page {
+            padding: 6rem 1rem 2rem;
+        }
+        
+        .legal-container {
+            padding: 2rem 1.5rem;
+        }
+        
+        .legal-header h1 {
+            font-size: 2rem;
+        }
+        
+        .legal-content h2 {
+            font-size: 1.5rem;
+        }
+        
+        .rights-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="legal-page">
+    <div class="legal-container">
+        <div class="legal-header">
+            <h1>GDPR - Защита на личните данни</h1>
+            <p class="legal-date">Съответствие с Регламент (ЕС) 2016/679</p>
+        </div>
+        
+        <div class="legal-content">
+            <div class="highlight-box">
+                <p><strong>BGMaistor се ангажира</strong> да защитава вашата лична информация в съответствие с Общия регламент за защита на данните (GDPR) и българското законодателство.</p>
+            </div>
+            
+            <h2>1. Какво е GDPR?</h2>
+            <p>Общият регламент за защита на данните (General Data Protection Regulation - GDPR) е европейско законодателство, което регулира обработката и защитата на личните данни на физически лица в Европейския съюз.</p>
+            
+            <div class="info-box">
+                <p><strong>GDPR влезе в сила на 25 май 2018 г.</strong> и се прилага директно във всички държави-членки на ЕС, включително България.</p>
+            </div>
+            
+            <h2>2. Основни принципи на GDPR</h2>
+            <p>BGMaistor обработва личните ви данни според следните принципи:</p>
+            
+            <h3>2.1. Законосъобразност и прозрачност</h3>
+            <p>Обработваме данни законно, справедливо и по прозрачен начин. Винаги ви информираме за обработката.</p>
+            
+            <h3>2.2. Ограничение на целите</h3>
+            <p>Събираме данни само за конкретни, ясно определени и легитимни цели.</p>
+            
+            <h3>2.3. Минимизиране на данните</h3>
+            <p>Събираме само данни, които са необходими за посочените цели.</p>
+            
+            <h3>2.4. Точност</h3>
+            <p>Гарантираме, че личните данни са точни и актуални.</p>
+            
+            <h3>2.5. Ограничение на съхранението</h3>
+            <p>Съхраняваме данни само толкова дълго, колкото е необходимо.</p>
+            
+            <h3>2.6. Цялостност и поверителност</h3>
+            <p>Осигуряваме подходяща сигурност на личните данни срещу неоторизиран достъп.</p>
+            
+            <h2>3. Правна основа за обработка</h2>
+            <p>Обработваме вашите лични данни на следните основания:</p>
+            
+            <ul>
+                <li><strong>Съгласие</strong> - дали сте ясно съгласие за обработка</li>
+                <li><strong>Договор</strong> - необходимо за изпълнение на договор с вас</li>
+                <li><strong>Законово задължение</strong> - изисква се от закона</li>
+                <li><strong>Legitimen интерес</strong> - за легитимни бизнес цели, които не засягат вашите права</li>
+            </ul>
+            
+            <h2>4. Вашите права по GDPR</h2>
+            <p>Като субект на данни имате следните права:</p>
+            
+            <div class="rights-grid">
+                <div class="right-card">
+                    <h4>🔍 Право на достъп</h4>
+                    <p>Да получите информация какви данни обработваме за вас и копие от тях.</p>
+                </div>
+                
+                <div class="right-card">
+                    <h4>✏️ Право на коригиране</h4>
+                    <p>Да поискате корекция на неточни или непълни лични данни.</p>
+                </div>
+                
+                <div class="right-card">
+                    <h4>🗑️ Право на изтриване</h4>
+                    <p>Да поискате изтриване на личните си данни ("правото да бъдеш забравен").</p>
+                </div>
+                
+                <div class="right-card">
+                    <h4>⏸️ Право на ограничаване</h4>
+                    <p>Да поискате временно ограничаване на обработката на данните.</p>
+                </div>
+                
+                <div class="right-card">
+                    <h4>📦 Право на преносимост</h4>
+                    <p>Да получите данните си в структуриран, машинно четим формат.</p>
+                </div>
+                
+                <div class="right-card">
+                    <h4>🚫 Право на възражение</h4>
+                    <p>Да възразите срещу обработката на данни, включително за маркетинг.</p>
+                </div>
+                
+                <div class="right-card">
+                    <h4>🔄 Право на оттегляне на съгласие</h4>
+                    <p>Да оттеглите съгласието си за обработка по всяко време.</p>
+                </div>
+                
+                <div class="right-card">
+                    <h4>⚖️ Право на жалба</h4>
+                    <p>Да подадете жалба до надзорния орган (КЗЛД).</p>
+                </div>
+            </div>
+            
+            <h2>5. Как да упражните правата си</h2>
+            
+            <h3>5.1. Подаване на искане</h3>
+            <p>За да упражните правата си, изпратете писмено искане на:</p>
+            <ul>
+                <li><strong>Имейл:</strong> privacy@bgmajstor.eu или gdpr@bgmajstor.eu</li>
+                <li><strong>Формуляр:</strong> <a href="{% url 'contact' %}">Страница за контакти</a></li>
+                <li><strong>Пощенски адрес:</strong> BGMaistor, София, България</li>
+            </ul>
+            
+            <h3>5.2. Необходима информация</h3>
+            <p>В искането си включете:</p>
+            <ul>
+                <li>Вашето име и имейл адрес, регистриран в платформата</li>
+                <li>Конкретното право, което искате да упражните</li>
+                <li>Допълнителна информация за идентификация (ако е необходимо)</li>
+            </ul>
+            
+            <h3>5.3. Срокове за отговор</h3>
+            <p>Ще отговорим на вашето искане в рамките на:</p>
+            <ul>
+                <li><strong>1 месец</strong> - стандартен срок</li>
+                <li><strong>До 3 месеца</strong> - при сложни или множество искания (с уведомление)</li>
+            </ul>
+            
+            <h3>5.4. Безплатно упражняване</h3>
+            <p>Упражняването на правата ви е напълно безплатно. Таксуваме само при:</p>
+            <ul>
+                <li>Явно неоснователни искания</li>
+                <li>Прекомерни повторни искания</li>
+            </ul>
+            
+            <h2>6. Сигурност на данните</h2>
+            
+            <h3>6.1. Технически мерки</h3>
+            <ul>
+                <li><strong>SSL/TLS шифроване</strong> - защита при предаване на данни</li>
+                <li><strong>Криптиране на пароли</strong> - хеширане с bcrypt</li>
+                <li><strong>Защитени сървъри</strong> - файърволи и мониторинг</li>
+                <li><strong>Редовни бекъпи</strong> - защита срещу загуба на данни</li>
+                <li><strong>Актуализации</strong> - редовни security patches</li>
+            </ul>
+            
+            <h3>6.2. Организационни мерки</h3>
+            <ul>
+                <li>Ограничен достъп до лични данни</li>
+                <li>Обучение на персонала за GDPR</li>
+                <li>Договори за поверителност</li>
+                <li>Вътрешни политики и процедури</li>
+                <li>Редовни одити на сигурността</li>
+            </ul>
+            
+            <h2>7. Нарушения на сигурността</h2>
+            <p>В случай на нарушение на сигурността на данните (data breach):</p>
+            
+            <h3>7.1. Уведомяване на надзорния орган</h3>
+            <p>Ще уведомим КЗЛД в рамките на <strong>72 часа</strong> след узнаване на нарушението.</p>
+            
+            <h3>7.2. Уведомяване на засегнатите лица</h3>
+            <p>При висок риск за правата ви, ще ви уведомим незабавно за:</p>
+            <ul>
+                <li>Естеството на нарушението</li>
+                <li>Възможни последици</li>
+                <li>Предприети мерки</li>
+                <li>Препоръки за защита</li>
+            </ul>
+            
+            <h2>8. Предаване на данни извън ЕС</h2>
+            <p>Вашите данни се съхраняват основно на сървъри в Европейския съюз. При предаване извън ЕС гарантираме:</p>
+            <ul>
+                <li>Адекватни решения на ЕК за защита</li>
+                <li>Стандартни договорни клаузи (SCC)</li>
+                <li>Binding Corporate Rules (BCR)</li>
+                <li>Privacy Shield сертификати (където е приложимо)</li>
+            </ul>
+            
+            <h2>9. Автоматизирано вземане на решения</h2>
+            <p>BGMaistor <strong>не използва</strong> изцяло автоматизирано вземане на решения или профилиране, което има правни последици за вас.</p>
+            <p>Всички значими решения включват човешка намеса и преценка.</p>
+            
+            <h2>10. Деца и GDPR</h2>
+            <p>Платформата не е предназначена за деца под 16 години. Ако сте родител или настойник и смятате, че детето ви е предоставило лични данни, моля свържете се с нас за изтриването им.</p>
+            
+            <h2>11. Длъжностно лице по защита на данните (DPO)</h2>
+            <p>При въпроси относно обработката на лични данни можете да се свържете с нашето длъжностно лице:</p>
+            <ul>
+                <li><strong>Имейл:</strong> dpo@bgmajstor.eu</li>
+
+            </ul>
+            
+            <h2>12. Надзорен орган</h2>
+            <p>Имате право да подадете жалба до надзорния орган за защита на данните:</p>
+            
+            <div class="info-box">
+                <p><strong>Комисия за защита на личните данни (КЗЛД)</strong></p>
+                <p><strong>Адрес:</strong> София 1592, бул. "Проф. Цветан Лазаров" № 2</p>
+                <p><strong>Телефон:</strong> +359 2 915 3 518</p>
+                <p><strong>Факс:</strong> +359 2 915 3 525</p>
+                <p><strong>Имейл:</strong> kzld@cpdp.bg</p>
+                <p><strong>Уебсайт:</strong> <a href="https://www.cpdp.bg" target="_blank">www.cpdp.bg</a></p>
+                <p><strong>Работно време:</strong> Понеделник - Петък, 9:00 - 17:30</p>
+            </div>
+            
+            <h2>13. Актуализации</h2>
+            <p>Тази информация може да бъде актуализирана периодично за отразяване на промени в нашите практики или законодателството. Значителни промени ще бъдат съобщени чрез:</p>
+            <ul>
+                <li>Имейл уведомление</li>
+                <li>Известие на платформата</li>
+                <li>Актуализирана дата на документа</li>
+            </ul>
+            
+            <h2>14. Допълнителни ресурси</h2>
+            <p>За пълна информация относно обработката на лични данни вижте:</p>
+            <ul>
+                <li><a href="{% url 'privacy_policy' %}">Политика за поверителност</a> - пълни детайли за обработка</li>
+                <li><a href="{% url 'cookie_policy' %}">Политика за бисквитки</a> - информация за cookies</li>
+                <li><a href="{% url 'terms_of_service' %}">Условия за ползване</a> - общи условия</li>
+            </ul>
+            
+            <h2>15. Контакти</h2>
+            <p>За въпроси, искания или оплаквания относно GDPR:</p>
+            <ul>
+                <li><strong>Общ имейл:</strong> support@bgmajstor.eu</li>
+                <li><strong>GDPR специфичен:</strong> gdpr@bgmajstor.eu</li>
+                <li><strong>DPO:</strong> dpo@bgmajstor.eu</li>
+                <li><strong>Формуляр:</strong> <a href="{% url 'contact' %}">Свържете се с нас</a></li>
+            </ul>
+            
+            <div class="highlight-box">
+                <p><strong>Помнете:</strong> Упражняването на правата ви е безплатно и ние се ангажираме да отговорим бързо и професионално на всички ваши искания.</p>
+            </div>
+            
+            <a href="{% url 'home' %}" class="back-link">← Обратно към началната страница</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

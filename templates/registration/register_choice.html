@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Регистрация - BGMaistor{% endblock %}
+
+{% block extra_css %}
+<style>
+    .register-hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 3rem 2rem;
+        text-align: center;
+        color: white;
+        margin-top: 80px;
+    }
+    
+    .register-hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+    
+    .register-hero p {
+        font-size: 1.1rem;
+        opacity: 0.95;
+    }
+    
+    .register-container {
+        max-width: 1000px;
+        margin: 3rem auto;
+        padding: 0 2rem;
+    }
+    
+    .choice-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+    
+    .choice-card {
+        background: white;
+        border-radius: 20px;
+        padding: 3rem 2rem;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+        border: 3px solid transparent;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+    
+    .choice-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        border-color: #667eea;
+    }
+    
+    .choice-icon {
+        font-size: 5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .choice-card h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        color: #2d3748;
+    }
+    
+    .choice-card p {
+        color: #718096;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+    }
+    
+    .choice-features {
+        text-align: left;
+        margin: 1.5rem 0;
+        padding: 1.5rem;
+        background: #f8fafc;
+        border-radius: 12px;
+    }
+    
+    .choice-features h3 {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        color: #4a5568;
+        font-weight: 600;
+    }
+    
+    .choice-features ul {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .choice-features li {
+        padding: 0.5rem 0;
+        color: #718096;
+        font-size: 0.95rem;
+    }
+    
+    .choice-features li:before {
+        content: "✓ ";
+        color: #48bb78;
+        font-weight: bold;
+        margin-right: 0.5rem;
+    }
+    
+    .btn-choice {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s;
+    }
+    
+    .btn-choice:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        color: white;
+    }
+    
+    @media (max-width: 768px) {
+        .choice-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="breadcrumbs">
+    <a href="{% url 'home' %}">Начало</a> / 
+    <span>Регистрация</span>
+</div>
+
+<section class="register-hero">
+    <h1>👋 Присъединете се към BGMaistor</h1>
+    <p>Изберете типа на вашия профил</p>
+</section>
+
+<div class="register-container">
+    <div class="choice-grid">
+        <!-- Client Registration -->
+        <a href="{% url 'register_client' %}" class="choice-card">
+            <div class="choice-icon">👤</div>
+            <h2>Клиент</h2>
+            <p>Търся майстор за услуги</p>
+            
+            <div class="choice-features">
+                <h3>С клиентски профил можете:</h3>
+                <ul>
+                    <li>Търсене на професионалисти</li>
+                    <li>Преглед на портфолиа</li>
+                    <li>Коментиране на профили</li>
+                    <li>Оценка на снимки</li>
+                    <li>Директен контакт с майстори</li>
+                </ul>
+            </div>
+            
+            <span class="btn-choice">Регистрирай се като клиент</span>
+        </a>
+        
+        <!-- Professional Registration -->
+        <a href="{% url 'register_professional' %}" class="choice-card">
+            <div class="choice-icon">🔧</div>
+            <h2>Професионалист</h2>
+            <p>Предлагам услуги като майстор</p>
+            
+            <div class="choice-features">
+                <h3>С професионален профил можете:</h3>
+                <ul>
+                    <li>Създаване на подробен профил</li>
+                    <li>Качване на до 20 снимки</li>
+                    <li>Избор на множество категории</li>
+                    <li>Показване на контакти</li>
+                    <li>Получаване на запитвания</li>
+                </ul>
+            </div>
+            
+            <span class="btn-choice">Регистрирай се като професионалист</span>
+        </a>
+    </div>
+</div>
+{% endblock %}

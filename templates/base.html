@@ -1,0 +1,124 @@
+ce{% load static %}
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}BGMaistor - Намери доверен майстор за всяка услуга{% endblock %}</title>
+    <meta name="description" content="Свържи се с проверени професионалисти за ремонт, монтаж и услуги в твоя град. Над 2,300+ майстори, 12,000+ доволни клиента.">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Modern Sticky Navbar -->
+    <header id="navbar">
+        <nav class="navbar">
+            <a href="{% url 'home' %}" class="logo">
+                🛠️ BG<span>Maistor</span>
+            </a>
+            <ul>
+                <li><a href="{% url 'home' %}">Начало</a></li>
+                <li><a href="{% url 'categories_list' %}">Категории</a></li>
+                <li><a href="{% url 'home' %}#how-it-works">Как работи</a></li>
+                <li><a href="{% url 'home' %}#professionals">Майстори</a></li>
+                <li><a href="{% url 'contact' %}">Контакти</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'my_profile' %}">Моят профил</a></li>
+                <li><a href="{% url 'logout' %}" class="nav-cta">Изход</a></li>
+                {% else %}
+                <li><a href="{% url 'login' %}">Вход</a></li>
+                <li><a href="{% url 'register_choice' %}" class="nav-cta">Регистрация</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+    <!-- Premium Dark Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>🛠️ BGMaistor</h3>
+                <p>Marketplace платформа за домашни услуги. Свържи се с професионалисти за ремонт и услуги.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">f</a>
+                    <a href="#" class="social-link">𝕏</a>
+                    <a href="#" class="social-link">in</a>
+                    <a href="#" class="social-link">📷</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Категории услуги</h3>
+                <ul>
+                    <li><a href="{% url 'category_detail' slug='elektrichestvo' %}">Електричество</a></li>
+                    <li><a href="{% url 'category_detail' slug='vodoprovod' %}">Водопровод</a></li>
+                    <li><a href="{% url 'category_detail' slug='stroitelstvo' %}">Строителство</a></li>
+                    <li><a href="{% url 'category_detail' slug='boyadisvane' %}">Боядисване</a></li>
+                    <li><a href="{% url 'category_detail' slug='klimatitsi' %}">Климатици</a></li>
+                    <li><a href="{% url 'category_detail' slug='dograma' %}">Дограма</a></li>
+                    <li><a href="{% url 'category_detail' slug='gradinarstvo' %}">Градинарство</a></li>
+                    <li><a href="{% url 'category_detail' slug='pochistvane' %}">Почистване</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>За платформата</h3>
+                <ul>
+                    <li><a href="#">Как работи</a></li>
+                    <li><a href="#">За професионалисти</a></li>
+                    <li><a href="#">Регистрация</a></li>
+                    <li><a href="#">Често задавани въпроси</a></li>
+                    <li><a href="#">Блог</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Правна информация</h3>
+                <ul>
+                    <li><a href="{% url 'terms_of_service' %}">Условия за ползване</a></li>
+                    <li><a href="{% url 'privacy_policy' %}">Политика за поверителност</a></li>
+                    <li><a href="{% url 'cookie_policy' %}">Политика за бисквитки</a></li>
+                    <li><a href="{% url 'gdpr' %}">GDPR</a></li>
+                </ul>
+                <h3 style="margin-top: 2rem;">Контакти</h3>
+                <ul>
+                    <li><a href="mailto:support@bgmajstor.eu">support@bgmajstor.eu</a></li>
+                    <li><a href="{% url 'contact' %}">Форма за контакт</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 BGMaistor. Всички права запазени. Marketplace платформа за домашни услуги.</p>
+        </div>
+    </footer>
+
+    <!-- Smooth Scroll Script -->
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

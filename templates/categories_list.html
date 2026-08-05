@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Всички kategории услуги - BGMaistor{% endblock %}
+
+{% block extra_css %}
+<style>
+    .categories-hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 4rem 2rem;
+        text-align: center;
+        color: white;
+        margin-top: 80px;
+    }
+    
+    .categories-hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+    
+    .categories-hero p {
+        font-size: 1.2rem;
+        max-width: 800px;
+        margin: 0 auto;
+        opacity: 0.95;
+    }
+    
+    .categories-container {
+        max-width: 1400px;
+        margin: 3rem auto;
+        padding: 0 2rem;
+    }
+    
+    .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+    
+    .category-card {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        text-align: center;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+    
+    .category-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        border-color: #667eea;
+    }
+    
+    .category-card .icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        display: block;
+    }
+    
+    .category-card h3 {
+        color: #2d3748;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+    
+    .category-card p {
+        color: #718096;
+        margin-bottom: 1rem;
+        line-height: 1.6;
+    }
+    
+    .breadcrumbs {
+        max-width: 1400px;
+        margin: 1rem auto;
+        padding: 0 2rem;
+        font-size: 0.9rem;
+        color: #718096;
+    }
+    
+    .breadcrumbs a {
+        color: #667eea;
+        text-decoration: none;
+    }
+    
+    .breadcrumbs a:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- SEO Meta Tags -->
+<meta name="description" content="Намерете професионалисти за всяка категория услуги - от водопровод и електричество до строителство и ремонт.">
+<meta name="keywords" content="услуги, майстори, ремонт, водопровод, електричество, строителство, боядисване">
+
+<!-- Breadcrumbs -->
+<div class="breadcrumbs">
+    <a href="{% url 'home' %}">Начало</a> / 
+    <span>Категории</span>
+</div>
+
+<!-- Hero Section -->
+<section class="categories-hero">
+    <h1>🛠️ Всички категории услуги</h1>
+    <p>Изберете категорията, от която се нуждаете и се свържете с проверени професионалисти</p>
+</section>
+
+<!-- Categories Grid -->
+<div class="categories-container">
+    <div class="categories-grid">
+        {% for category in categories %}
+        <a href="{{ category.get_absolute_url }}" class="category-card">
+            <span class="icon">{{ category.icon }}</span>
+            <h3>{{ category.name }}</h3>
+            <p>{{ category.description|truncatewords:20 }}</p>
+        </a>
+        {% empty %}
+        <p>Няма налични категории в момента.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

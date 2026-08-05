@@ -1,0 +1,306 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ category.meta_title }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .category-hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 4rem 2rem;
+        text-align: center;
+        color: white;
+        margin-top: 80px;
+    }
+    
+    .category-hero .icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+    }
+    
+    .category-hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+    
+    .category-hero p {
+        font-size: 1.2rem;
+        max-width: 800px;
+        margin: 0 auto;
+        opacity: 0.95;
+    }
+    
+    .category-content {
+        max-width: 1200px;
+        margin: 3rem auto;
+        padding: 0 2rem;
+    }
+    
+    .content-section {
+        background: white;
+        padding: 3rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        margin-bottom: 2rem;
+    }
+    
+    .content-section h2 {
+        color: #2d3748;
+        margin-bottom: 1.5rem;
+        font-size: 1.8rem;
+    }
+    
+    .content-section p {
+        color: #4a5568;
+        line-height: 1.8;
+        margin-bottom: 1rem;
+    }
+    
+    .cta-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 3rem;
+        border-radius: 12px;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .cta-section h2 {
+        color: white;
+        margin-bottom: 1rem;
+    }
+    
+    .cta-button {
+        display: inline-block;
+        background: white;
+        color: #667eea;
+        padding: 1rem 2.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        margin-top: 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .cta-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    
+    .related-categories {
+        margin-top: 3rem;
+    }
+    
+    .related-categories h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: #2d3748;
+    }
+    
+    .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+    }
+    
+    .category-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        text-align: center;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s ease;
+    }
+    
+    .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .category-card .icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+    
+    .category-card h3 {
+        color: #2d3748;
+        margin-bottom: 0.5rem;
+    }
+    
+    .breadcrumbs {
+        max-width: 1200px;
+        margin: 1rem auto;
+        padding: 0 2rem;
+        font-size: 0.9rem;
+        color: #718096;
+    }
+    
+    .breadcrumbs a {
+        color: #667eea;
+        text-decoration: none;
+    }
+    
+    .breadcrumbs a:hover {
+        text-decoration: underline;
+    }
+    
+    .professional-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s ease;
+        display: block;
+    }
+    
+    .professional-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        color: inherit;
+    }
+    
+    .professionals-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- SEO Meta Tags -->
+<meta name="description" content="{{ category.meta_description }}">
+<meta name="keywords" content="{{ category.keywords }}">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ category.meta_title }}">
+<meta property="og:description" content="{{ category.meta_description }}">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:title" content="{{ category.meta_title }}">
+<meta property="twitter:description" content="{{ category.meta_description }}">
+
+<!-- Structured Data (Schema.org) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "{{ category.name }}",
+  "description": "{{ category.meta_description }}",
+  "provider": {
+    "@type": "Organization",
+    "name": "BGMaistor",
+    "url": "{{ request.scheme }}://{{ request.get_host }}"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "България"
+  }
+}
+</script>
+
+<!-- Breadcrumbs -->
+<div class="breadcrumbs">
+    <a href="{% url 'home' %}">Начало</a> / 
+    <a href="{% url 'categories_list' %}">Категории</a> / 
+    <span>{{ category.name }}</span>
+</div>
+
+<!-- Hero Section -->
+<section class="category-hero">
+    <div class="icon">{{ category.icon }}</div>
+    <h1>{{ category.h1_title }}</h1>
+    <p>{{ category.description }}</p>
+</section>
+
+<!-- Main Content -->
+<div class="category-content">
+    <!-- Professionals Section -->
+    {% if professionals %}
+    <div class="content-section">
+        <h2>👷 Професионалисти в {{ category.name }}</h2>
+        <div class="professionals-grid">
+            {% for prof in professionals %}
+            <a href="{% url 'professional_profile' prof.slug %}" class="professional-card">
+                <div style="display: flex; align-items: start; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; flex-shrink: 0;">
+                        {{ prof.user.first_name.0 }}{{ prof.user.last_name.0 }}
+                    </div>
+                    <div style="flex: 1;">
+                        <h3 style="margin: 0 0 0.5rem 0; color: #2d3748; font-size: 1.1rem;">{{ prof.title }}</h3>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: #718096;">
+                            {% if prof.city %}
+                            <span>📍 {{ prof.city }}</span>
+                            {% endif %}
+                            {% if prof.rating > 0 %}
+                            <span>⭐ {{ prof.rating|floatformat:1 }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <p style="color: #4a5568; font-size: 0.95rem; margin: 0; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">{{ prof.description|truncatewords:30 }}</p>
+                <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 0.85rem; color: #718096;">{{ prof.images_count }} снимки</span>
+                    <span style="color: #667eea; font-weight: 600;">Виж профил →</span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <div class="content-section" style="text-align: center; padding: 3rem;">
+        <div style="font-size: 4rem; margin-bottom: 1rem; opacity: 0.3;">👷</div>
+        <h3 style="color: #718096; margin-bottom: 0.5rem;">Все още няма регистрирани професионалисти</h3>
+        <p style="color: #a0aec0;">Бъдете първият, който се регистрира в тази категория!</p>
+    </div>
+    {% endif %}
+    
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <h2>Нуждаете се от {{ category.name }}?</h2>
+        <p>Свържете се с проверени професионалисти за минути</p>
+        <a href="{% url 'contact' %}" class="cta-button">Свържи се с нас</a>
+    </div>
+    
+    {% if category.seo_content %}
+    <!-- SEO Content Section -->
+    <div class="content-section">
+        <h2>За услугите {{ category.name }}</h2>
+        {{ category.seo_content|safe|linebreaks }}
+    </div>
+    {% endif %}
+    
+    <!-- How it Works -->
+    <div class="content-section">
+        <h2>Как да намерите майстор за {{ category.name }}?</h2>
+        <p><strong>1. Опишете проекта си</strong> - Кажете ни какво точно ви трябва</p>
+        <p><strong>2. Получете оферти</strong> - Проверени майстори ще ви изпратят оферти за работата</p>
+        <p><strong>3. Изберете най-добрия</strong> - Сравнете цени, рейтинги и отзиви</p>
+        <p><strong>4. Работата е свършена</strong> - Професионалистът изпълнява услугата качествено</p>
+    </div>
+    
+    {% if related_categories %}
+    <!-- Related Categories -->
+    <div class="related-categories">
+        <h2>Други категории услуги</h2>
+        <div class="categories-grid">
+            {% for related in related_categories %}
+            <a href="{{ related.get_absolute_url }}" class="category-card">
+                <div class="icon">{{ related.icon }}</div>
+                <h3>{{ related.name }}</h3>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

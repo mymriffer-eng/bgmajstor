@@ -1,0 +1,642 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ professional.title }} - BGMaistor{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Hero Section */
+    .profile-hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 4rem 2rem;
+        text-align: center;
+        color: white;
+        margin-top: 80px;
+    }
+    
+    .profile-hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+    }
+    
+    .profile-hero p {
+        font-size: 1.2rem;
+        opacity: 0.95;
+    }
+    
+    .profile-avatar-circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: white;
+        color: #667eea;
+        font-size: 32px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+        border: 3px solid rgba(255,255,255,0.3);
+    }
+    
+    /* Main Container */
+    .profile-container {
+        max-width: 1200px;
+        margin: -3rem auto 4rem;
+        padding: 0 2rem;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .profile-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+    
+    .profile-main {
+        padding: 3rem;
+    }
+    
+    .profile-sidebar {
+        background: #f8fafc;
+        padding: 3rem 2rem;
+        border-left: 1px solid #e2e8f0;
+    }
+    
+    /* Section Headers */
+    .section-header {
+        font-size: 1.5rem;
+        margin: 2rem 0 1rem;
+        color: #2d3748;
+        font-weight: 700;
+        border-bottom: 2px solid #e2e8f0;
+        padding-bottom: 0.5rem;
+    }
+    
+    /* Info Fields */
+    .info-field {
+        background: #f8fafc;
+        padding: 1rem;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+        border: 2px solid #e2e8f0;
+    }
+    
+    .info-field small {
+        color: #718096;
+        display: block;
+        margin-bottom: 0.25rem;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+    
+    .info-field strong {
+        color: #2d3748;
+    }
+    
+    .info-field p {
+        margin: 0;
+        line-height: 1.7;
+        color: #4a5568;
+    }
+    
+    /* Info Grid */
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .info-grid .info-field.full-width {
+        grid-column: 1 / -1;
+    }
+    
+    /* Categories */
+    .category-tag {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background: #e2e8f0;
+        border-radius: 20px;
+        margin: 0.25rem;
+        font-size: 0.875rem;
+        text-decoration: none;
+        color: #2d3748;
+        transition: all 0.3s;
+    }
+    
+    .category-tag:hover {
+        background: #667eea;
+        color: white;
+    }
+    
+    /* Gallery */
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .gallery-item {
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s;
+        aspect-ratio: 1;
+    }
+    
+    .gallery-item:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    
+    /* Sidebar Styles */
+    .profile-sidebar h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1.5rem;
+        color: #2d3748;
+        font-weight: 700;
+    }
+    
+    .contact-method {
+        display: flex;
+        align-items: start;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        background: white;
+        border-radius: 10px;
+        border: 2px solid #e2e8f0;
+        transition: all 0.3s;
+    }
+    
+    .contact-method:hover {
+        border-color: #667eea;
+    }
+    
+    .contact-method-icon {
+        font-size: 1.5rem;
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    
+    .contact-method-content {
+        flex: 1;
+    }
+    
+    .contact-method-content small {
+        color: #718096;
+        display: block;
+        margin-bottom: 0.25rem;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+    }
+    
+    .contact-method-content strong,
+    .contact-method-content a {
+        color: #2d3748;
+        font-weight: 600;
+        text-decoration: none;
+    }
+    
+    .contact-method-content a:hover {
+        color: #667eea;
+    }
+    
+    /* Button */
+    .btn-primary-custom {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        width: 100%;
+        text-align: center;
+        display: block;
+        text-decoration: none;
+        margin-top: 1.5rem;
+    }
+    
+    .btn-primary-custom:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+    
+    .btn-secondary-custom {
+        background: #4a5568;
+        color: white;
+        padding: 0.875rem 1.5rem;
+        border: none;
+        border-radius: 12px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        width: 100%;
+        text-align: center;
+        display: block;
+        text-decoration: none;
+        margin-top: 1rem;
+    }
+    
+    .btn-secondary-custom:hover {
+        background: #2d3748;
+        transform: translateY(-2px);
+    }
+    
+    /* Responsive */
+    @media (max-width: 992px) {
+        .profile-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .profile-sidebar {
+            border-left: none;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .stats-row {
+            grid-template-columns: 1fr;
+        }
+        
+        .info-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Profile Hero -->
+<div class="profile-hero">
+    <div class="profile-avatar-circle">
+        {{ professional.user.first_name.0 }}{{ professional.user.last_name.0 }}
+    </div>
+    <h1>{{ professional.title }}</h1>
+    <p>{{ professional.user.get_full_name }}</p>
+    {% if professional.is_verified %}
+    <span class="badge bg-success" style="margin-top: 10px; font-size: 1rem; padding: 0.5rem 1rem;">
+        <i class="bi bi-patch-check-fill"></i> Верифициран майстор
+    </span>
+    {% endif %}
+</div>
+
+<!-- Profile Container -->
+<div class="profile-container">
+    <div class="profile-grid">
+        
+        <!-- Main Content -->
+        <div class="profile-main">
+            
+            <!-- About -->
+            <h2 class="section-header">👤 За мен</h2>
+            <div class="info-field">
+                <p style="white-space: pre-line;">{{ professional.description }}</p>
+            </div>
+            
+            <!-- Info -->
+            <h2 class="section-header">📋 Информация</h2>
+            <div class="info-grid">
+                <div class="info-field">
+                    <small>Статус</small>
+                    <strong>
+                        {% if professional.is_verified %}
+                        ✅ Верифициран
+                        {% else %}
+                        ⏳ Неверифициран
+                        {% endif %}
+                    </strong>
+                </div>
+                <div class="info-field">
+                    <small>Наличност</small>
+                    <strong>
+                        {% if professional.is_available %}
+                        🟢 Наличен
+                        {% else %}
+                        🔴 Зает
+                        {% endif %}
+                    </strong>
+                </div>
+                <div class="info-field full-width">
+                    <small>Член от</small>
+                    <strong>{{ professional.created_at|date:"d F Y" }}</strong>
+                </div>
+            </div>
+            
+            <!-- Categories -->
+            <h2 class="section-header">🛠️ Категории услуги</h2>
+            <div>
+                {% for category in professional.categories.all %}
+                <a href="{% url 'category_detail' category.slug %}" class="category-tag">
+                    {{ category.icon }} {{ category.name }}
+                </a>
+                {% endfor %}
+            </div>
+            
+            <!-- Gallery -->
+            {% if images %}
+            <h2 class="section-header">📸 Галерия ({{ images.count }})</h2>
+            <div class="gallery-grid">
+                {% for image in images %}
+                <div class="gallery-item" onclick="openLightbox({{ forloop.counter0 }})">
+                    <img src="{{ image.image.url }}" alt="{{ image.caption }}">
+                </div>
+                {% endfor %}
+            </div>
+            {% elif is_owner %}
+            <div style="background: #e7f3ff; border: 2px solid #b3d9ff; border-radius: 12px; padding: 1.5rem; margin-top: 2rem;">
+                <strong style="color: #0066cc;">ℹ️ Още нямате снимки!</strong>
+                <p style="margin: 0.5rem 0 0 0;">
+                    <a href="{% url 'professional_add_images' professional.slug %}" style="color: #0066cc; font-weight: 600;">
+                        Качете първите си снимки
+                    </a> за да направите профила си по-атрактивен.
+                </p>
+            </div>
+            {% endif %}
+            
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="profile-sidebar">
+            
+            <h3>📞 Контактна информация</h3>
+            
+            {% if professional.phone %}
+            <div class="contact-method">
+                <div class="contact-method-icon">📱</div>
+                <div class="contact-method-content">
+                    <small>Телефон</small>
+                    <a href="tel:{{ professional.phone }}">{{ professional.phone }}</a>
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if professional.email %}
+            <div class="contact-method">
+                <div class="contact-method-icon">✉️</div>
+                <div class="contact-method-content">
+                    <small>Имейл</small>
+                    <a href="mailto:{{ professional.email }}" style="word-break: break-all;">{{ professional.email }}</a>
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if professional.city %}
+            <div class="contact-method">
+                <div class="contact-method-icon">📍</div>
+                <div class="contact-method-content">
+                    <small>Град</small>
+                    <strong>{{ professional.city }}</strong>
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if professional.address %}
+            <div class="contact-method">
+                <div class="contact-method-icon">🏠</div>
+                <div class="contact-method-content">
+                    <small>Адрес</small>
+                    <strong>{{ professional.address }}</strong>
+                </div>
+            </div>
+            {% endif %}
+            
+            <a href="{% url 'contact' %}" class="btn-primary-custom">
+                ✉️ Изпрати запитване
+            </a>
+            
+            {% if is_owner %}
+            <h3 style="margin-top: 2rem;">⚙️ Управление</h3>
+            <a href="{% url 'professional_add_images' professional.slug %}" class="btn-secondary-custom">
+                📷 Управление на снимки
+            </a>
+            {% endif %}
+            
+        </div>
+        
+    </div>
+</div>
+
+<!-- Lightbox Modal -->
+<div class="modal fade" id="lightboxModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 1200px; margin: 1.75rem auto;">
+        <div class="modal-content" style="background: rgba(0,0,0,0.95); border: none; border-radius: 20px; overflow: hidden;">
+            <div class="modal-header border-0" style="padding: 1rem; position: absolute; right: 0; top: 0; z-index: 10; display: flex; justify-content: space-between; width: 100%; left: 0;">
+                <div style="padding: 0.5rem 1rem; display: flex; align-items: center; gap: 1rem;">
+                    <span id="imageCounter" style="color: white; font-weight: 600; font-size: 1rem;"></span>
+                    {% if images.count > 1 %}
+                    <button id="autoPlayBtn" style="background: rgba(255,255,255,0.2); border: none; color: white; padding: 0.4rem 0.8rem; border-radius: 20px; cursor: pointer; backdrop-filter: blur(10px); font-size: 0.9rem; transition: all 0.3s ease;">
+                        <span id="playIcon">⏸</span> <span id="playText">Пауза</span>
+                    </button>
+                    {% endif %}
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center position-relative" style="padding: 3rem 1rem; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <img id="lightboxImage" src="" class="img-fluid" style="max-height: 75vh; max-width: 100%; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); object-fit: contain;">
+                
+                <!-- Navigation Arrows -->
+                {% if images.count > 1 %}
+                <button class="lightbox-nav lightbox-prev" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); border: none; color: white; width: 50px; height: 50px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; backdrop-filter: blur(10px); transition: all 0.3s ease; z-index: 5;">
+                    ‹
+                </button>
+                <button class="lightbox-nav lightbox-next" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); border: none; color: white; width: 50px; height: 50px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; backdrop-filter: blur(10px); transition: all 0.3s ease; z-index: 5;">
+                    ›
+                </button>
+                {% endif %}
+                
+                <!-- Caption -->
+                <div id="imageCaption" style="color: white; margin-top: 1rem; font-size: 1rem; opacity: 0.9;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.lightbox-nav:hover {
+    background: rgba(255,255,255,0.3) !important;
+    transform: translateY(-50%) scale(1.1) !important;
+}
+
+.lightbox-nav:active {
+    transform: translateY(-50%) scale(0.95) !important;
+}
+
+#autoPlayBtn:hover {
+    background: rgba(255,255,255,0.3) !important;
+    transform: scale(1.05);
+}
+</style>
+
+<script>
+const images = [
+    {% for image in images %}
+    { url: "{{ image.image.url }}", caption: "{{ image.caption|escapejs }}" }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+];
+
+let currentImageIndex = 0;
+let lightboxModal = null;
+let autoPlayInterval = null;
+let isPlaying = true;
+
+function openLightbox(index) {
+    currentImageIndex = index;
+    showImage(currentImageIndex);
+    
+    if (!lightboxModal) {
+        lightboxModal = new bootstrap.Modal(document.getElementById('lightboxModal'));
+    }
+    lightboxModal.show();
+    
+    // Стартирай автоматично въртене след кратко забавяне
+    setTimeout(() => {
+        if (images.length > 1) {
+            startAutoPlay();
+        }
+    }, 500);
+}
+
+function showImage(index) {
+    if (images.length === 0) return;
+    
+    // Update image
+    document.getElementById('lightboxImage').src = images[index].url;
+    
+    // Update counter
+    document.getElementById('imageCounter').textContent = `${index + 1} / ${images.length}`;
+    
+    // Update caption
+    const caption = images[index].caption || 'Без описание';
+    document.getElementById('imageCaption').textContent = caption;
+}
+
+function nextImage() {
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+    showImage(currentImageIndex);
+}
+
+function prevImage() {
+    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+    showImage(currentImageIndex);
+}
+
+function startAutoPlay() {
+    if (autoPlayInterval) return; // Вече работи
+    
+    isPlaying = true;
+    updatePlayButton();
+    
+    autoPlayInterval = setInterval(() => {
+        nextImage();
+    }, 3000); // Превърти на всеки 3 секунди
+}
+
+function stopAutoPlay() {
+    if (autoPlayInterval) {
+        clearInterval(autoPlayInterval);
+        autoPlayInterval = null;
+    }
+    isPlaying = false;
+    updatePlayButton();
+}
+
+function toggleAutoPlay() {
+    if (isPlaying) {
+        stopAutoPlay();
+    } else {
+        startAutoPlay();
+    }
+}
+
+function updatePlayButton() {
+    const playIcon = document.getElementById('playIcon');
+    const playText = document.getElementById('playText');
+    
+    if (playIcon && playText) {
+        if (isPlaying) {
+            playIcon.textContent = '⏸';
+            playText.textContent = 'Пауза';
+        } else {
+            playIcon.textContent = '▶';
+            playText.textContent = 'Пусни';
+        }
+    }
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+    const modal = document.getElementById('lightboxModal');
+    if (modal.classList.contains('show')) {
+        if (e.key === 'ArrowRight') {
+            stopAutoPlay(); // Спри автоматичното при ръчна навигация
+            nextImage();
+        } else if (e.key === 'ArrowLeft') {
+            stopAutoPlay(); // Спри автоматичното при ръчна навигация
+            prevImage();
+        } else if (e.key === 'Escape') {
+            lightboxModal.hide();
+        } else if (e.key === ' ') { // Spacebar за play/pause
+            e.preventDefault();
+            toggleAutoPlay();
+        }
+    }
+});
+
+// Спри автоматичното въртене при затваряне на modal
+document.getElementById('lightboxModal').addEventListener('hidden.bs.modal', function () {
+    stopAutoPlay();
+});
+
+// Event listeners за бутоните
+document.addEventListener('DOMContentLoaded', function() {
+    const prevBtn = document.querySelector('.lightbox-prev');
+    const nextBtn = document.querySelector('.lightbox-next');
+    const autoPlayBtn = document.getElementById('autoPlayBtn');
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            stopAutoPlay();
+            prevImage();
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            stopAutoPlay();
+            nextImage();
+        });
+    }
+    
+    if (autoPlayBtn) {
+        autoPlayBtn.addEventListener('click', toggleAutoPlay);
+    }
+});
+</script>
+{% endblock %}

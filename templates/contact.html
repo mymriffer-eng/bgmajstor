@@ -1,0 +1,424 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Контакти - BGMaistor{% endblock %}
+
+{% block extra_css %}
+<style>
+    .contact-hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 4rem 2rem;
+        text-align: center;
+        color: white;
+        margin-top: 80px;
+    }
+    
+    .contact-hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+    
+    .contact-hero p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 0 auto;
+        opacity: 0.95;
+    }
+    
+    .contact-container {
+        max-width: 1200px;
+        margin: -3rem auto 4rem;
+        padding: 0 2rem;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+    
+    .contact-info {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 3rem;
+        color: white;
+    }
+    
+    .contact-info h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: white;
+    }
+    
+    .contact-info p {
+        margin-bottom: 2rem;
+        opacity: 0.95;
+        line-height: 1.7;
+    }
+    
+    .contact-method {
+        display: flex;
+        align-items: start;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        background: rgba(255,255,255,0.1);
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+    }
+    
+    .contact-method-icon {
+        font-size: 1.5rem;
+        width: 40px;
+        height: 40px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    
+    .contact-method-content h3 {
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+        font-weight: 600;
+        color: white;
+    }
+    
+    .contact-method-content p {
+        margin: 0;
+        opacity: 0.95;
+    }
+    
+    .contact-method-content a {
+        color: white;
+        text-decoration: none;
+        opacity: 0.95;
+        transition: opacity 0.3s;
+    }
+    
+    .contact-method-content a:hover {
+        opacity: 1;
+        text-decoration: underline;
+    }
+    
+    .contact-form-section {
+        padding: 3rem;
+    }
+    
+    .contact-form-section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+        color: #2d3748;
+    }
+    
+    .contact-form-section .subtitle {
+        color: #718096;
+        margin-bottom: 2rem;
+    }
+    
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #2d3748;
+    }
+    
+    .form-group label .required {
+        color: #e53e3e;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 1rem;
+        font-family: inherit;
+        transition: all 0.3s;
+        background: #f8fafc;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    .form-group textarea {
+        resize: vertical;
+        min-height: 150px;
+    }
+    
+    .char-counter {
+        text-align: right;
+        font-size: 0.875rem;
+        color: #718096;
+        margin-top: 0.25rem;
+    }
+    
+    .char-counter.warning {
+        color: #f59e0b;
+    }
+    
+    .char-counter.danger {
+        color: #e53e3e;
+    }
+    
+    .form-actions {
+        margin-top: 2rem;
+    }
+    
+    .btn-submit {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1rem 2.5rem;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        width: 100%;
+    }
+    
+    .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+    
+    .btn-submit:active {
+        transform: translateY(0);
+    }
+    
+    .messages {
+        margin-bottom: 2rem;
+    }
+    
+    .message {
+        padding: 1rem 1.25rem;
+        border-radius: 10px;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    
+    .message.success {
+        background: #d1fae5;
+        color: #065f46;
+        border: 1px solid #6ee7b7;
+    }
+    
+    .message.error {
+        background: #fee2e2;
+        color: #991b1b;
+        border: 1px solid #fca5a5;
+    }
+    
+    .breadcrumbs {
+        max-width: 1200px;
+        margin: 1rem auto;
+        padding: 0 2rem;
+        font-size: 0.9rem;
+        color: #718096;
+    }
+    
+    .breadcrumbs a {
+        color: #667eea;
+        text-decoration: none;
+    }
+    
+    .breadcrumbs a:hover {
+        text-decoration: underline;
+    }
+    
+    .working-hours {
+        margin-top: 2rem;
+        padding: 1.5rem;
+        background: rgba(255,255,255,0.1);
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+    }
+    
+    .working-hours h3 {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        color: white;
+    }
+    
+    .working-hours p {
+        margin-bottom: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    @media (max-width: 768px) {
+        .contact-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .contact-hero h1 {
+            font-size: 2rem;
+        }
+        
+        .contact-info,
+        .contact-form-section {
+            padding: 2rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- SEO Meta Tags -->
+<meta name="description" content="Свържете се с BGMaistor - платформа за домашни услуги. Изпратете запитване за услуги или обратна връзка.">
+
+<!-- Breadcrumbs -->
+<div class="breadcrumbs">
+    <a href="{% url 'home' %}">Начало</a> / 
+    <span>Контакти</span>
+</div>
+
+<!-- Hero Section -->
+<section class="contact-hero">
+    <h1>📧 Свържете се с нас</h1>
+    <p>Имате въпрос или нужда от помощ? Екипът на BGMaistor е тук, за да ви помогне!</p>
+</section>
+
+<!-- Contact Section -->
+<div class="contact-container">
+    <div class="contact-grid">
+        <!-- Contact Info -->
+        <div class="contact-info">
+            <h2>Информация за контакт</h2>
+            <p>Свържете се с нас по всеки удобен за вас начин. Отговаряме бързо на всички запитвания!</p>
+            
+            <div class="contact-method">
+                <div class="contact-method-icon">📧</div>
+                <div class="contact-method-content">
+                    <h3>Имейл</h3>
+                    <p><a href="mailto:support@bgmajstor.eu">support@bgmajstor.eu</a></p>
+                </div>
+            </div>
+            
+            <div class="contact-method">
+                <div class="contact-method-icon"></div>
+                <div class="contact-method-content">
+                    <h3>Адрес</h3>
+                    <p>София, България</p>
+                </div>
+            </div>
+            
+            <div class="working-hours">
+                <h3>⏰ Работно време</h3>
+                <p><span>Понеделник - Петък:</span> <span>9:00 - 18:00</span></p>
+                <p><span>Събота:</span> <span>10:00 - 14:00</span></p>
+                <p><span>Неделя:</span> <span>Почивен ден</span></p>
+            </div>
+        </div>
+        
+        <!-- Contact Form -->
+        <div class="contact-form-section">
+            <h2>Изпратете съобщение</h2>
+            <p class="subtitle">Попълнете формата по-долу и ние ще се свържем с вас скоро</p>
+            
+            <!-- Messages -->
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="message {{ message.tags }}">
+                    <span>{{ message }}</span>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            <form method="post" id="contactForm">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="name">Вашето име <span class="required">*</span></label>
+                    <input type="text" id="name" name="name" required placeholder="Иван Иванов">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Имейл адрес <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required placeholder="ivan@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Телефон (опционално)</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+359 888 123 456">
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">Тема (опционално)</label>
+                    <input type="text" id="subject" name="subject" placeholder="Относно...">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Съобщение <span class="required">*</span></label>
+                    <textarea id="message" name="message" required placeholder="Напишете вашето съобщение тук..." maxlength="2000"></textarea>
+                    <div class="char-counter">
+                        <span id="charCount">0</span> / 2000 символа
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">📤 Изпрати съобщение</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Character counter for message textarea
+    const messageTextarea = document.getElementById('message');
+    const charCount = document.getElementById('charCount');
+    const charCounter = messageTextarea.parentElement.querySelector('.char-counter');
+    
+    messageTextarea.addEventListener('input', function() {
+        const length = this.value.length;
+        charCount.textContent = length;
+        
+        // Change color based on length
+        if (length > 1900) {
+            charCounter.classList.add('danger');
+            charCounter.classList.remove('warning');
+        } else if (length > 1500) {
+            charCounter.classList.add('warning');
+            charCounter.classList.remove('danger');
+        } else {
+            charCounter.classList.remove('warning', 'danger');
+        }
+    });
+    
+    // Form validation
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+        
+        if (!name || !email || !message) {
+            e.preventDefault();
+            alert('Моля попълнете всички задължителни полета.');
+        }
+    });
+</script>
+{% endblock %}

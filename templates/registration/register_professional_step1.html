@@ -1,0 +1,214 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Регистрация на професионалист - Стъпка 1 - BGMaistor{% endblock %}
+
+{% block extra_css %}
+<style>
+    .register-hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 3rem 2rem 4rem;
+        text-align: center;
+        color: white;
+        margin-top: 80px;
+    }
+    
+    .register-hero h1 {
+        font-size: 2.2rem;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+    }
+    
+    .register-hero p {
+        font-size: 1.1rem;
+        opacity: 0.95;
+    }
+    
+    .steps {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+    
+    .step {
+        text-align: center;
+    }
+    
+    .step-number {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 0.5rem;
+        font-weight: 700;
+    }
+    
+    .step.active .step-number {
+        background: white;
+        color: #667eea;
+    }
+    
+    .step-label {
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+    
+    .step.active .step-label {
+        opacity: 1;
+        font-weight: 600;
+    }
+    
+    .form-container {
+        max-width: 600px;
+        margin: -2rem auto 4rem;
+        padding: 0 2rem;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .form-card {
+        background: white;
+        border-radius: 20px;
+        padding: 3rem;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+    
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #2d3748;
+    }
+    
+    .form-control {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 1rem;
+        font-family: inherit;
+        transition: all 0.3s;
+        background: #f8fafc;
+    }
+    
+    .form-control:focus {
+        outline: none;
+        border-color: #667eea;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    .helptext {
+        display: block;
+        font-size: 0.875rem;
+        color: #718096;
+        margin-top: 0.25rem;
+    }
+    
+    .errorlist {
+        list-style: none;
+        padding: 0;
+        margin: 0.5rem 0 0;
+    }
+    
+    .errorlist li {
+        color: #e53e3e;
+        font-size: 0.875rem;
+        padding: 0.25rem 0;
+    }
+    
+    .btn-submit {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        transition: all 0.3s;
+        margin-top: 1rem;
+    }
+    
+    .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+    
+    .back-link {
+        display: inline-block;
+        margin-bottom: 1.5rem;
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    
+    .back-link:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="breadcrumbs">
+    <a href="{% url 'home' %}">Начало</a> / 
+    <a href="{% url 'register_choice' %}">Регистрация</a> / 
+    <span>Професионалист</span>
+</div>
+
+<section class="register-hero">
+    <h1>🔧 Регистрация на професионалист</h1>
+    <p>Създайте си професионален профил за предлагане на услуги</p>
+    
+    <div class="steps">
+        <div class="step active">
+            <div class="step-number">1</div>
+            <div class="step-label">Акаунт</div>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-label">Профил</div>
+        </div>
+    </div>
+</section>
+
+<div class="form-container">
+    <div class="form-card">
+        <a href="{% url 'register_choice' %}" class="back-link">← Назад към избор</a>
+        
+        <h2 style="margin-bottom: 1.5rem; color: #2d3748;">Стъпка 1: Създайте акаунт</h2>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.help_text %}
+                    <span class="helptext">{{ field.help_text|safe }}</span>
+                {% endif %}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            {% endfor %}
+            
+            <button type="submit" class="btn-submit">Продължи към профил →</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
