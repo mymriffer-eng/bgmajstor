@@ -1,0 +1,11 @@
+# Пренасочване към public_html за статични файлове
+RewriteEngine On
+RewriteBase /
+
+# Статични и медия файлове
+RewriteRule ^(static|media)/(.*)$ public_html/$1/$2 [L]
+
+# Passenger configuration
+PassengerAppRoot /home/yourusername/bgmaistor
+PassengerBaseURI /
+PassengerPython /home/yourusername/virtualenv/bgmaistor/3.9/bin/python
