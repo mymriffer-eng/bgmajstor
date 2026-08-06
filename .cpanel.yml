@@ -1,0 +1,27 @@
+---
+deployment:
+  tasks:
+    # Копиране на файловете в app root
+    - export DEPLOYPATH=/home/bghranac/bgmajstor
+    - /bin/cp -R * $DEPLOYPATH
+    
+    # Активиране на virtual environment и инсталиране на dependencies
+    - source /home/bghranac/virtualenv/bgmajstor/3.9/bin/activate
+    - cd $DEPLOYPATH
+    - pip install -r requirements.txt
+    
+    # Създаване на директории ако не съществуват
+    - mkdir -p $DEPLOYPATH/public_html/static
+    - mkdir -p $DEPLOYPATH/public_html/media
+    - mkdir -p $DEPLOYPATH/logs
+    - chmod 755 $DEPLOYPATH/public_html/static
+    - chmod 755 $DEPLOYPATH/public_html/media
+    - chmod 755 $DEPLOYPATH/logs
+    
+    # Django management команди
+    - python $DEPLOYPATH/manage.py migrate --settings=config.settings_production
+    - python $DEPLOYPATH/manage.py collectstatic --settings=config.settings_production --noinput
+    
+    # Рестарт на приложението
+    - mkdir -p $DEPLOYPATH/tmp
+    - touch $DEPLOYPATH/tmp/restart.txt
