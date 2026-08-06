@@ -1,0 +1,5 @@
+{
+  "app_type": "wsgi",
+  "startup_file": "passenger_wsgi.py",
+  "python": "/home/bghranac/virtualenv/repositories/bgmajstor/3.13/bin/python"
+}

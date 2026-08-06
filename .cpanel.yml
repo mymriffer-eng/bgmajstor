@@ -6,13 +6,21 @@ deployment:
     - cd /home/bghranac/repositories/bgmajstor
     - pip install -r requirements.txt
     
+    # Fix permissions за всички файлове (Passenger се нуждае от read permissions)
+    - find /home/bghranac/repositories/bgmajstor -type f -exec chmod 644 {} \;
+    - find /home/bghranac/repositories/bgmajstor -type d -exec chmod 755 {} \;
+    - chmod 755 /home/bghranac/repositories/bgmajstor/passenger_wsgi.py
+    - chmod 755 /home/bghranac/repositories/bgmajstor/manage.py
+    
     # Създаване на директории ако не съществуват
     - mkdir -p /home/bghranac/repositories/bgmajstor/public_html/static
     - mkdir -p /home/bghranac/repositories/bgmajstor/public_html/media
     - mkdir -p /home/bghranac/repositories/bgmajstor/logs
+    - mkdir -p /home/bghranac/repositories/bgmajstor/tmp
     - chmod 755 /home/bghranac/repositories/bgmajstor/public_html/static
     - chmod 755 /home/bghranac/repositories/bgmajstor/public_html/media
     - chmod 755 /home/bghranac/repositories/bgmajstor/logs
+    - chmod 755 /home/bghranac/repositories/bgmajstor/tmp
     
     # Копиране на settings_production.py template ако липсва
     - cd /home/bghranac/repositories/bgmajstor/config
@@ -24,5 +32,4 @@ deployment:
     - python manage.py collectstatic --settings=config.settings_production --noinput
     
     # Рестарт на приложението
-    - mkdir -p /home/bghranac/repositories/bgmajstor/tmp
     - touch /home/bghranac/repositories/bgmajstor/tmp/restart.txt
