@@ -1,27 +1,28 @@
 ---
 deployment:
   tasks:
-    # Копиране на файловете в app root
-    - export DEPLOYPATH=/home/bghranac/bgmajstor
-    - /bin/cp -R * $DEPLOYPATH
-    
     # Активиране на virtual environment и инсталиране на dependencies
-    - source /home/bghranac/virtualenv/bgmajstor/3.9/bin/activate
-    - cd $DEPLOYPATH
+    - source /home/bghranac/virtualenv/repositories/bgmajstor/3.13/bin/activate
+    - cd /home/bghranac/repositories/bgmajstor
     - pip install -r requirements.txt
     
     # Създаване на директории ако не съществуват
-    - mkdir -p $DEPLOYPATH/public_html/static
-    - mkdir -p $DEPLOYPATH/public_html/media
-    - mkdir -p $DEPLOYPATH/logs
-    - chmod 755 $DEPLOYPATH/public_html/static
-    - chmod 755 $DEPLOYPATH/public_html/media
-    - chmod 755 $DEPLOYPATH/logs
+    - mkdir -p /home/bghranac/repositories/bgmajstor/public_html/static
+    - mkdir -p /home/bghranac/repositories/bgmajstor/public_html/media
+    - mkdir -p /home/bghranac/repositories/bgmajstor/logs
+    - chmod 755 /home/bghranac/repositories/bgmajstor/public_html/static
+    - chmod 755 /home/bghranac/repositories/bgmajstor/public_html/media
+    - chmod 755 /home/bghranac/repositories/bgmajstor/logs
+    
+    # Копиране на settings_production.py template ако липсва
+    - cd /home/bghranac/repositories/bgmajstor/config
+    - test -f settings_production.py || cp settings_production.py.template settings_production.py
     
     # Django management команди
-    - python $DEPLOYPATH/manage.py migrate --settings=config.settings_production
-    - python $DEPLOYPATH/manage.py collectstatic --settings=config.settings_production --noinput
+    - cd /home/bghranac/repositories/bgmajstor
+    - python manage.py migrate --settings=config.settings_production
+    - python manage.py collectstatic --settings=config.settings_production --noinput
     
     # Рестарт на приложението
-    - mkdir -p $DEPLOYPATH/tmp
-    - touch $DEPLOYPATH/tmp/restart.txt
+    - mkdir -p /home/bghranac/repositories/bgmajstor/tmp
+    - touch /home/bghranac/repositories/bgmajstor/tmp/restart.txt
