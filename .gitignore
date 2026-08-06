@@ -31,4 +31,9 @@ Thumbs.db
 # Secrets
 *.env
 .env.local
+.env.production
 secrets.json
+
+# Production settings with credentials
+# Внимание: Никога не качвайте settings_production.py с реални credentials!
+config/settings_production.py

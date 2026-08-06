@@ -6,6 +6,6 @@ RewriteBase /
 RewriteRule ^(static|media)/(.*)$ public_html/$1/$2 [L]
 
 # Passenger configuration
-PassengerAppRoot /home/yourusername/bgmaistor
+PassengerAppRoot /home/bghranac/bgmaistor
 PassengerBaseURI /
-PassengerPython /home/yourusername/virtualenv/bgmaistor/3.9/bin/python
+PassengerPython /home/bghranac/virtualenv/bgmaistor/3.9/bin/python
