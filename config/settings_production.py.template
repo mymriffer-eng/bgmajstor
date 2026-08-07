@@ -5,6 +5,13 @@ Copy this file to settings_production.py and fill in your actual credentials
 import os
 from .settings import *
 
+# PyMySQL support за MySQL database (по-лесна инсталация от mysqlclient)
+try:
+    import pymysql
+    pymysql.install_as_MySQLdb()
+except ImportError:
+    pass
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
