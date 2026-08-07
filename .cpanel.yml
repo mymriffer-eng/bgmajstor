@@ -6,9 +6,9 @@ deployment:
     - cd /home/bghranac/repositories/bgmajstor
     - pip install -r requirements.txt
     
-    # Fix permissions за всички файлове (Passenger се нуждае от read permissions)
-    - find /home/bghranac/repositories/bgmajstor -type f -exec chmod 644 {} \;
-    - find /home/bghranac/repositories/bgmajstor -type d -exec chmod 755 {} \;
+    # Fix permissions за всички файлове (EXCLUDE .git директория!)
+    - find /home/bghranac/repositories/bgmajstor -type f -not -path "*/.git/*" -exec chmod 644 {} \;
+    - find /home/bghranac/repositories/bgmajstor -type d -not -path "*/.git/*" -exec chmod 755 {} \;
     - chmod 755 /home/bghranac/repositories/bgmajstor/passenger_wsgi.py
     - chmod 755 /home/bghranac/repositories/bgmajstor/manage.py
     

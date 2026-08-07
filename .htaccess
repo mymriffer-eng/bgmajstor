@@ -2,6 +2,9 @@
 RewriteEngine On
 RewriteBase /
 
+# Блокиране на достъп до .git директория (security)
+RewriteRule ^\.git/ - [F,L]
+
 # Статични и медия файлове
 RewriteRule ^(static|media)/(.*)$ public_html/$1/$2 [L]
 
