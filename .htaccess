@@ -1,14 +1,26 @@
-# Пренасочване към public_html за статични файлове
 RewriteEngine On
 RewriteBase /
 
 # Блокиране на достъп до .git директория (security)
 RewriteRule ^\.git/ - [F,L]
 
-# Статични и медия файлове
-RewriteRule ^(static|media)/(.*)$ public_html/$1/$2 [L]
+# Статични и медия файлове - serve директно без Django
+RewriteCond %{REQUEST_URI} ^/static/ [OR]
+RewriteCond %{REQUEST_URI} ^/media/
+RewriteRule ^(static|media)/(.*)$ public_html/$1/$2 [L,QSA]
 
 # Passenger configuration
 PassengerAppRoot /home/bghranac/repositories/bgmajstor
 PassengerBaseURI /
 PassengerPython /home/bghranac/virtualenv/repositories/bgmajstor/3.13/bin/python
+PassengerStartupFile passenger_wsgi.py
+
+# Забрана за Passenger да обработва static файлове
+<IfModule mod_passenger.c>
+    PassengerEnabled on
+</IfModule>
+
+# Директно serve на static/media файлове
+<FilesMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$">
+    PassengerEnabled off
+</FilesMatch>
