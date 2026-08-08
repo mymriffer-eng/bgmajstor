@@ -19,8 +19,9 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+# Промяна на admin URL за по-добра сигурност
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('supereto/', admin.site.urls),  # Променено от admin/ на supereto/
     path('', include('core.urls')),
 ]
 
