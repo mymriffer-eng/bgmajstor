@@ -6,16 +6,11 @@
 {% block extra_css %}
 <style>
     .category-hero {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, var(--navy-primary), var(--navy-secondary));
         padding: 4rem 2rem;
         text-align: center;
         color: white;
         margin-top: 80px;
-    }
-    
-    .category-hero .icon {
-        font-size: 4rem;
-        margin-bottom: 1rem;
     }
     
     .category-hero h1 {
@@ -58,7 +53,7 @@
     }
     
     .cta-section {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, var(--orange-accent), #fb923c);
         color: white;
         padding: 3rem;
         border-radius: 12px;
@@ -74,7 +69,7 @@
     .cta-button {
         display: inline-block;
         background: white;
-        color: #667eea;
+        color: var(--navy-primary);
         padding: 1rem 2.5rem;
         border-radius: 50px;
         text-decoration: none;
@@ -139,7 +134,7 @@
     }
     
     .breadcrumbs a {
-        color: #667eea;
+        color: var(--orange-accent);
         text-decoration: none;
     }
     
@@ -217,7 +212,6 @@
 
 <!-- Hero Section -->
 <section class="category-hero">
-    <div class="icon">{{ category.icon }}</div>
     <h1>{{ category.h1_title }}</h1>
     <p>{{ category.description }}</p>
 </section>
@@ -232,7 +226,7 @@
             {% for prof in professionals %}
             <a href="{% url 'professional_profile' prof.slug %}" class="professional-card">
                 <div style="display: flex; align-items: start; gap: 1rem; margin-bottom: 1rem;">
-                    <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; flex-shrink: 0;">
+                    <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--orange-accent), #fb923c); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; flex-shrink: 0;">
                         {{ prof.user.first_name.0 }}{{ prof.user.last_name.0 }}
                     </div>
                     <div style="flex: 1;">
@@ -294,9 +288,9 @@
         <h2>Други категории услуги</h2>
         <div class="categories-grid">
             {% for related in related_categories %}
-            <a href="{{ related.get_absolute_url }}" class="category-card">
-                <div class="icon">{{ related.icon }}</div>
+            <a href="{% url 'category_detail' slug=related.slug %}" class="category-card">
                 <h3>{{ related.name }}</h3>
+                <p style="color: #718096; font-size: 0.9rem; margin-top: 0.5rem;">{{ related.description|truncatewords:10 }}</p>
             </a>
             {% endfor %}
         </div>
