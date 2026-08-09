@@ -3,5 +3,5 @@ Django==6.0.5
 pillow==12.2.0
 sqlparse==0.5.5
 tzdata==2026.2
-pymysql>=2.2.1
+pymysql==1.1.1
 whitenoise==6.7.0
