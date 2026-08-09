@@ -1,41 +1,41 @@
 #!/usr/bin/env python
 """
 Update existing categories - remove icon letters
+Direct MySQL update without Django
 """
-import os
-import sys
 import pymysql
-import django
-
-# Install PyMySQL as MySQLdb
-pymysql.install_as_MySQLdb()
-
-# Setup Django
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings_production')
-django.setup()
-
-from core.models import Category
 
 def main():
-    print("=== Updating Categories ===\n")
+    print("=== Updating Categories (Direct MySQL) ===\n")
     
-    categories = Category.objects.all()
+    # Connect to database
+    connection = pymysql.connect(
+        host='localhost',
+        user='bghranac_bgmajstor',
+        password='(%(yM07{@!S3b2&s',
+        database='bghranac_bgmajstor',
+        charset='utf8mb4'
+    )
     
-    if not categories:
-        print("❌ No categories found in database")
-        return
-    
-    updated = 0
-    for category in categories:
-        old_icon = category.icon
-        category.icon = ""
-        category.save()
-        print(f"✓ Updated: {category.name} (was: '{old_icon}' → now: '')")
-        updated += 1
-    
-    print(f"\n=== Summary ===")
-    print(f"Updated: {updated} categories")
+    try:
+        cursor = connection.cursor()
+        
+        # Get current categories
+        cursor.execute("SELECT id, name, icon FROM core_category")
+        categories = cursor.fetchall()
+        
+        print(f"Found {len(categories)} categories:\n")
+        for cat_id, name, icon in categories:
+            print(f"  ID {cat_id}: {name} (icon: '{icon}')")
+        
+        # Update all icons to empty string
+        cursor.execute("UPDATE core_category SET icon = ''")
+        connection.commit()
+        
+        print(f"\n✓ Updated {cursor.rowcount} categories - all icons removed")
+        
+    finally:
+        connection.close()
 
 if __name__ == "__main__":
     main()
