@@ -127,11 +127,11 @@
             {% for professional in recent_professionals %}
             <div class="professional-card">
                 <div class="pro-header">
-                    <div class="pro-avatar" style="background: linear-gradient(135deg, {{ professional.categories.first.color|default:'#667eea' }}, {{ professional.categories.first.color|default:'#764ba2' }});">
+                    <div class="pro-avatar" style="background: linear-gradient(135deg, var(--orange-accent), #fb923c);">
                         {% if professional.avatar %}
                             <img src="{{ professional.avatar.url }}" alt="{{ professional.business_name|default:professional.user.email }}">
                         {% else %}
-                            {{ professional.categories.first.icon|default:'👤' }}
+                            👤
                         {% endif %}
                     </div>
                     <div class="pro-info">

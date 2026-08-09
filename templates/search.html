@@ -247,9 +247,9 @@
 <div class="search-hero">
     <h1>
         {% if selected_category and selected_city %}
-        {{ selected_category.icon }} {{ selected_category.name }} в {{ selected_city.name }}
+        {{ selected_category.name }} в {{ selected_city.name }}
         {% elif selected_category %}
-        {{ selected_category.icon }} {{ selected_category.name }}
+        {{ selected_category.name }}
         {% elif selected_city %}
         Професионалисти в {{ selected_city.name }}
         {% else %}

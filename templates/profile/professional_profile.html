@@ -354,7 +354,7 @@
             <div>
                 {% for category in professional.categories.all %}
                 <a href="{% url 'category_detail' category.slug %}" class="category-tag">
-                    {{ category.icon }} {{ category.name }}
+                    {{ category.name }}
                 </a>
                 {% endfor %}
             </div>
