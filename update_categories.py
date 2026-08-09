@@ -4,7 +4,11 @@ Update existing categories - remove icon letters
 """
 import os
 import sys
+import pymysql
 import django
+
+# Install PyMySQL as MySQLdb
+pymysql.install_as_MySQLdb()
 
 # Setup Django
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
