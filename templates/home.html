@@ -155,8 +155,9 @@
 </section>
 
 <!-- ============================================
-     RECENT PROFESSIONALS SECTION
+     RECENT PROFESSIONALS SECTION (Hidden until we have registered professionals)
      ============================================ -->
+{% if recent_professionals %}
 <section class="section" id="professionals">
     <div class="container">
         <div class="section-header">
@@ -167,7 +168,6 @@
             </p>
         </div>
         
-        {% if recent_professionals %}
         <div class="professionals-grid">
             {% for professional in recent_professionals %}
             <div class="professional-card">
@@ -205,13 +205,9 @@
             </div>
             {% endfor %}
         </div>
-        {% else %}
-        <div class="empty-state">
-            <p>Все още няма регистрирани професионалисти</p>
-        </div>
-        {% endif %}
     </div>
 </section>
+{% endif %}
 
 <!-- ============================================
      CTA SECTION

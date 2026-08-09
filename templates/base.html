@@ -5,7 +5,7 @@ ce{% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}BGMaistor - Намери доверен майстор за всяка услуга{% endblock %}</title>
-    <meta name="description" content="Свържи се с проверени професионалисти за ремонт, монтаж и услуги в твоя град. Над 2,300+ майстори, 12,000+ доволни клиента.">
+    <meta name="description" content="Marketplace за професионални услуги в дома. Намери майстор за ремонт, монтаж и услуги във всеки град в България.">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
@@ -20,7 +20,6 @@ ce{% load static %}
                 <li><a href="{% url 'home' %}">Начало</a></li>
                 <li><a href="{% url 'categories_list' %}">Категории</a></li>
                 <li><a href="{% url 'home' %}#how-it-works">Как работи</a></li>
-                <li><a href="{% url 'home' %}#professionals">Майстори</a></li>
                 <li><a href="{% url 'contact' %}">Контакти</a></li>
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'my_profile' %}">Моят профил</a></li>
