@@ -60,61 +60,17 @@
         </div>
         
         <div class="categories-grid">
-            <!-- Electric -->
-            <a href="{% url 'category_detail' slug='elektrichestvo' %}" class="category-card cat-electric">
-                <div class="category-icon-wrapper">⚡</div>
-                <h3>Електричество</h3>
-                <p>Електроинсталации, ремонти, поддръжка, аварийни услуги 24/7</p>
+            {% for category in categories %}
+            <a href="{% url 'category_detail' slug=category.slug %}" class="category-card">
+                <div class="category-icon-wrapper">{{ category.icon }}</div>
+                <h3>{{ category.name }}</h3>
+                <p>{{ category.description|truncatewords:15 }}</p>
             </a>
-            
-            <!-- Plumbing -->
-            <a href="{% url 'category_detail' slug='vodoprovod' %}" class="category-card cat-plumbing">
-                <div class="category-icon-wrapper">🚰</div>
-                <h3>Водопровод</h3>
-                <p>ВиК услуги, канализация, отопление, аварийни услуги</p>
-            </a>
-            
-            <!-- Construction -->
-            <a href="{% url 'category_detail' slug='stroitelstvo' %}" class="category-card cat-construction">
-                <div class="category-icon-wrapper">🏗️</div>
-                <h3>Строителство</h3>
-                <p>Ремонти, преустройство, нови сгради, основен ремонт</p>
-            </a>
-            
-            <!-- Painting -->
-            <a href="{% url 'category_detail' slug='boyadisvane' %}" class="category-card cat-painting">
-                <div class="category-icon-wrapper">🎨</div>
-                <h3>Боядисване</h3>
-                <p>Вътрешно и външно боядисване, декоративни мазилки</p>
-            </a>
-            
-            <!-- Windows/Doors -->
-            <a href="{% url 'category_detail' slug='dograma' %}" class="category-card cat-windows">
-                <div class="category-icon-wrapper">🪟</div>
-                <h3>Дограма</h3>
-                <p>Прозорци, врати, остъкляване, PVC и алуминий</p>
-            </a>
-            
-            <!-- Garden -->
-            <a href="{% url 'category_detail' slug='gradinarstvo' %}" class="category-card cat-garden">
-                <div class="category-icon-wrapper">🌳</div>
-                <h3>Градинарство</h3>
-                <p>Озеленяване, поддръжка, ландшафтен дизайн</p>
-            </a>
-            
-            <!-- HVAC -->
-            <a href="{% url 'category_detail' slug='klimatitsi' %}" class="category-card cat-hvac">
-                <div class="category-icon-wrapper">❄️</div>
-                <h3>Климатици</h3>
-                <p>Монтаж, ремонт, сервиз, профилактика</p>
-            </a>
-            
-            <!-- Cleaning -->
-            <a href="{% url 'category_detail' slug='pochistvane' %}" class="category-card cat-cleaning">
-                <div class="category-icon-wrapper">🧹</div>
-                <h3>Почистване</h3>
-                <p>Домове, офиси, след ремонт, генерално</p>
-            </a>
+            {% empty %}
+            <p style="text-align: center; grid-column: 1/-1; color: #718096;">
+                Категориите се зареждат...
+            </p>
+            {% endfor %}
         </div>
     </div>
 </section>
