@@ -51,7 +51,7 @@ CITIES_DATA = [
 CATEGORIES_DATA = [
     {
         "name": "Електричар",
-        "icon": "⚡",
+        "icon": "[E]",  # Заместено с текст заради MySQL charset
         "order": 1,
         "meta_title": "Електричар София - Професионални Електро Услуги",
         "meta_description": "Намери проверен електричар в София и цяла България. Електро инсталации, ремонт, подмяна. Бързо, качествено, с гаранция.",
@@ -65,7 +65,7 @@ CATEGORIES_DATA = [
     },
     {
         "name": "Водопроводчик",
-        "icon": "🚰",
+        "icon": "[V]",  # Заместено с текст заради MySQL charset
         "order": 2,
         "meta_title": "Водопроводчик София - ВиК Услуги 24/7",
         "meta_description": "Спешен водопроводчик в София и цяла България. ВиК ремонти, течове, запушени канали. Бърза намеса, професионално изпълнение.",
@@ -79,7 +79,7 @@ CATEGORIES_DATA = [
     },
     {
         "name": "Ремонт на климатици",
-        "icon": "❄️",
+        "icon": "[K]",  # Заместено с текст заради MySQL charset
         "order": 3,
         "meta_title": "Ремонт и Монтаж на Климатици - Професионални Услуги",
         "meta_description": "Монтаж, ремонт и сервиз на климатици в София и страната. Професионални техници, качествено оборудване, гаранция.",
@@ -93,7 +93,7 @@ CATEGORIES_DATA = [
     },
     {
         "name": "Строител",
-        "icon": "🏗️",
+        "icon": "[S]",  # Заместено с текст заради MySQL charset
         "order": 4,
         "meta_title": "Строителни Услуги - Професионални Строители",
         "meta_description": "Строителни ремонти и услуги от майстори с опит. Зидария, мазилки, шпакловки, замазки. Качество и коректност.",
@@ -107,7 +107,7 @@ CATEGORIES_DATA = [
     },
     {
         "name": "Боядисване",
-        "icon": "🎨",
+        "icon": "[B]",  # Заместено с текст заради MySQL charset
         "order": 5,
         "meta_title": "Боядисване - Майстори Бояджии",
         "meta_description": "Професионално боядисване на жилища и офиси. Опитни бояджии, качествени материали, прецизно изпълнение.",
@@ -121,7 +121,7 @@ CATEGORIES_DATA = [
     },
     {
         "name": "Дърводелец",
-        "icon": "🪚",
+        "icon": "[D]",  # Заместено с текст заради MySQL charset
         "order": 6,
         "meta_title": "Дърводелски Услуги - Майстори Дърводелци",
         "meta_description": "Дърводелски услуги - мебели по поръчка, врати, прозорци, ремонт на мебели. Качествено дърво, прецизно изработване.",
@@ -135,7 +135,7 @@ CATEGORIES_DATA = [
     },
     {
         "name": "Ключар",
-        "icon": "🔑",
+        "icon": "[KL]",  # Заместено с текст заради MySQL charset
         "order": 7,
         "meta_title": "Ключар София - Спешна Помощ 24/7",
         "meta_description": "Спешен ключар в София и цяла България. Отваряне на врати, смяна на брави, аварийна помощ 24/7. Бърза реакция.",
@@ -149,7 +149,7 @@ CATEGORIES_DATA = [
     },
     {
         "name": "Ламинат и подови настилки",
-        "icon": "🪵",
+        "icon": "[L]",  # Заместено с текст заради MySQL charset
         "order": 8,
         "meta_title": "Полагане на Ламинат - Професионални Настилки",
         "meta_description": "Полагане на ламинат, паркет, винил и други подови настилки. Професионални майстори, прецизно изпълнение.",
@@ -218,7 +218,7 @@ for cat_data in CATEGORIES_DATA:
     )
     if created:
         created_categories += 1
-        print(f"  ✓ Created: {cat_data['icon']} {category.name}")
+        print(f"  ✓ Created: {category.name}")
     else:
         # Update if exists
         category.icon = cat_data["icon"]
@@ -234,7 +234,7 @@ for cat_data in CATEGORIES_DATA:
         category.completed_jobs = cat_data["completed_jobs"]
         category.save()
         updated_categories += 1
-        print(f"  • Updated: {cat_data['icon']} {category.name}")
+        print(f"  • Updated: {category.name}")
 
 print(f"\n  Created: {created_categories} categories")
 print(f"  Updated: {updated_categories} categories")
