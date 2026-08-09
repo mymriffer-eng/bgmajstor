@@ -268,7 +268,7 @@
                     <option value="">Всички категории</option>
                     {% for cat in categories %}
                     <option value="{{ cat.slug }}" {% if selected_category and selected_category.slug == cat.slug %}selected{% endif %}>
-                        {{ cat.icon }} {{ cat.name }}
+                        {{ cat.name }}
                     </option>
                     {% endfor %}
                 </select>
@@ -321,7 +321,7 @@
             {% if prof.categories.exists %}
             <div class="prof-categories">
                 {% for cat in prof.categories.all %}
-                <span class="prof-category">{{ cat.icon }} {{ cat.name }}</span>
+                <span class="prof-category">{{ cat.name }}</span>
                 {% endfor %}
             </div>
             {% endif %}

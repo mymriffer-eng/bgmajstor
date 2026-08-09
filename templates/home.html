@@ -25,7 +25,7 @@
                 <select name="category" required>
                     <option value="">Избери категория...</option>
                     {% for cat in categories %}
-                    <option value="{{ cat.slug }}">{{ cat.icon }} {{ cat.name }}</option>
+                    <option value="{{ cat.slug }}">{{ cat.name }}</option>
                     {% endfor %}
                 </select>
                 <select name="city">
@@ -62,7 +62,6 @@
         <div class="categories-grid">
             {% for category in categories %}
             <a href="{% url 'category_detail' slug=category.slug %}" class="category-card">
-                <div class="category-icon-wrapper">{{ category.icon }}</div>
                 <h3>{{ category.name }}</h3>
                 <p>{{ category.description|truncatewords:15 }}</p>
             </a>
