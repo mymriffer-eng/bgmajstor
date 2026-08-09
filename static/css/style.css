@@ -450,36 +450,11 @@ nav ul li a:hover::after {
     transform: scale(1.1) rotate(5deg);
 }
 
-.category-card.cat-electric .category-icon-wrapper {
-    background: linear-gradient(135deg, #FEF3C7, #FDE68A);
-}
-
-.category-card.cat-plumbing .category-icon-wrapper {
-    background: linear-gradient(135deg, #DBEAFE, #BFDBFE);
-}
-
-.category-card.cat-construction .category-icon-wrapper {
-    background: linear-gradient(135deg, #FCE7F3, #FBCFE8);
-}
-
-.category-card.cat-painting .category-icon-wrapper {
-    background: linear-gradient(135deg, #F3E8FF, #E9D5FF);
-}
-
-.category-card.cat-windows .category-icon-wrapper {
-    background: linear-gradient(135deg, #E0F2FE, #BAE6FD);
-}
-
-.category-card.cat-garden .category-icon-wrapper {
-    background: linear-gradient(135deg, #D1FAE5, #A7F3D0);
-}
-
-.category-card.cat-hvac .category-icon-wrapper {
-    background: linear-gradient(135deg, #DBEAFE, #BFDBFE);
-}
-
-.category-card.cat-cleaning .category-icon-wrapper {
-    background: linear-gradient(135deg, #FED7AA, #FDBA74);
+/* Universal gradient for all category icons */
+.category-card .category-icon-wrapper {
+    background: linear-gradient(135deg, #F97316, #FB923C);
+    color: white;
+    font-weight: bold;
 }
 
 .category-card h3 {
