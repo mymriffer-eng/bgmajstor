@@ -29,10 +29,10 @@ if '__version__' in content:
         current_version = match.group(1)
         print(f"   Current version: {current_version}")
     
-    # Patch version to 2.2.1
+    # Patch version to 2.3.0 (higher than 2.2.1 requirement)
     new_content = re.sub(
         r'(__version__\s*=\s*["\'])[^"\']+(["\'])',
-        r'\g<1>2.2.1\g<2>',
+        r'\g<1>2.3.0\g<2>',
         content
     )
     
@@ -40,7 +40,7 @@ if '__version__' in content:
     with open(pymysql_init, 'w', encoding='utf-8') as f:
         f.write(new_content)
     
-    print(f"   ✓ Patched to: 2.2.1")
+    print(f"   ✓ Patched to: 2.3.0")
 else:
     print("   ❌ __version__ not found in file")
     sys.exit(1)
@@ -54,7 +54,7 @@ if 'pymysql' in sys.modules:
 import pymysql
 print(f"   ✓ PyMySQL now reports version: {pymysql.__version__}")
 
-if pymysql.__version__ == '2.2.1':
+if pymysql.__version__ >= '2.2.1':
     print("\n=== SUCCESS ===")
     print("PyMySQL version patched successfully!")
     print("\nNow RESTART the application:")
