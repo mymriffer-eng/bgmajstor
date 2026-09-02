@@ -21,6 +21,6 @@ PassengerStartupFile passenger_wsgi.py
 </IfModule>
 
 # Директно serve на static/media файлове
-<FilesMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$">
+<FilesMatch "\.(css|js|png|jpg|jpeg|gif|webp|avif|ico|svg|woff|woff2|ttf|eot)$">
     PassengerEnabled off
 </FilesMatch>

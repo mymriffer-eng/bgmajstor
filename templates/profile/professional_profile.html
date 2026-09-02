@@ -433,6 +433,9 @@
             
             {% if is_owner %}
             <h3 style="margin-top: 2rem;">⚙️ Управление</h3>
+            <a href="{% url 'edit_professional_profile' professional.slug %}" class="btn-secondary-custom">
+                Редактирай профила
+            </a>
             <a href="{% url 'professional_add_images' professional.slug %}" class="btn-secondary-custom">
                 📷 Управление на снимки
             </a>

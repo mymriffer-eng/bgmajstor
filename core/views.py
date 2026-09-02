@@ -304,6 +304,28 @@ def professional_profile(request, slug):
     return render(request, 'profile/professional_profile.html', context)
 
 
+@login_required
+def edit_professional_profile(request, slug):
+    """Редакция на собствен професионален профил."""
+    professional = get_object_or_404(ProfessionalProfile, slug=slug, user=request.user)
+
+    if request.method == 'POST':
+        form = ProfessionalProfileForm(request.POST, instance=professional)
+        if form.is_valid():
+            profile = form.save()
+            messages.success(request, 'Профилът е обновен успешно.')
+            return redirect('professional_profile', slug=profile.slug)
+    else:
+        form = ProfessionalProfileForm(instance=professional)
+
+    return render(request, 'registration/register_professional_step2.html', {
+        'form': form,
+        'user': request.user,
+        'is_edit': True,
+        'professional': professional,
+    })
+
+
 def user_login(request):
     """Вход в системата"""
     if request.user.is_authenticated:

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Създаване на профил - Стъпка 2 - BGMaistor{% endblock %}
+{% block title %}{% if is_edit %}Редакция на профил{% else %}Създаване на профил - Стъпка 2{% endif %} - BGMaistor{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -202,10 +202,10 @@
 </div>
 
 <section class="register-hero">
-    <h1>🔧 Създаване на професионален профил</h1>
-    <p>Попълнете информацията за вашия професионален профил</p>
+    <h1>{% if is_edit %}Редакция на професионален профил{% else %}🔧 Създаване на професионален профил{% endif %}</h1>
+    <p>{% if is_edit %}Актуализирайте информацията за вашия профил{% else %}Попълнете информацията за вашия професионален профил{% endif %}</p>
     
-    <div class="steps">
+    {% if not is_edit %}<div class="steps">
         <div class="step">
             <div class="step-number">✓</div>
             <div class="step-label">Акаунт</div>
@@ -214,12 +214,12 @@
             <div class="step-number">2</div>
             <div class="step-label">Профил</div>
         </div>
-    </div>
+    </div>{% endif %}
 </section>
 
 <div class="form-container">
     <div class="form-card">
-        <h2 style="margin-bottom: 1.5rem; color: #2d3748;">Стъпка 2: Създайте вашия профил</h2>
+        <h2 style="margin-bottom: 1.5rem; color: #2d3748;">{% if is_edit %}Данни за профила{% else %}Стъпка 2: Създайте вашия профил{% endif %}</h2>
         
         <form method="post" id="profileForm">
             {% csrf_token %}
@@ -354,7 +354,7 @@
                 {% endif %}
             </div>
             
-            <button type="submit" class="btn-submit">✓ Завърши регистрацията</button>
+            <button type="submit" class="btn-submit">{% if is_edit %}Запази промените{% else %}✓ Завърши регистрацията{% endif %}</button>
         </form>
     </div>
 </div>
