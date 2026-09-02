@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 
 try:
     django.setup()
-    from core.models import Category, City
+    from core.models import Category, City, ascii_slug
     print("✓ Django setup successful!")
 except Exception as e:
     print(f"✗ Django setup failed: {e}")
@@ -185,9 +185,10 @@ for city_data in CITIES_DATA:
         # Update if exists
         city.region = city_data["region"]
         city.order = city_data["order"]
-        city.save()
         updated_cities += 1
         print(f"  • Updated: {city.name}")
+    city.slug = ascii_slug(city.name)
+    city.save()
 
 print(f"\n  Created: {created_cities} cities")
 print(f"  Updated: {updated_cities} cities")
@@ -232,9 +233,10 @@ for cat_data in CATEGORIES_DATA:
         category.professionals_count = cat_data["professionals_count"]
         category.average_rating = cat_data["average_rating"]
         category.completed_jobs = cat_data["completed_jobs"]
-        category.save()
         updated_categories += 1
         print(f"  • Updated: {category.name}")
+    category.slug = ascii_slug(category.name)
+    category.save()
 
 print(f"\n  Created: {created_categories} categories")
 print(f"  Updated: {updated_categories} categories")

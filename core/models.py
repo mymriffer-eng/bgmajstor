@@ -4,6 +4,23 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxLengthValidator
 
 
+BULGARIAN_TRANSLITERATION = str.maketrans({
+    "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ж": "zh",
+    "з": "z", "и": "i", "й": "y", "к": "k", "л": "l", "м": "m", "н": "n",
+    "о": "o", "п": "p", "р": "r", "с": "s", "т": "t", "у": "u", "ф": "f",
+    "х": "h", "ц": "ts", "ч": "ch", "ш": "sh", "щ": "sht", "ъ": "a", "ь": "",
+    "ю": "yu", "я": "ya", "А": "A", "Б": "B", "В": "V", "Г": "G", "Д": "D",
+    "Е": "E", "Ж": "Zh", "З": "Z", "И": "I", "Й": "Y", "К": "K", "Л": "L",
+    "М": "M", "Н": "N", "О": "O", "П": "P", "Р": "R", "С": "S", "Т": "T",
+    "У": "U", "Ф": "F", "Х": "H", "Ц": "Ts", "Ч": "Ch", "Ш": "Sh", "Щ": "Sht",
+    "Ъ": "A", "Ь": "", "Ю": "Yu", "Я": "Ya",
+})
+
+
+def ascii_slug(value):
+    return slugify(value.translate(BULGARIAN_TRANSLITERATION))
+
+
 class City(models.Model):
     """Градове в България"""
     name = models.CharField(max_length=100, unique=True, verbose_name="Име на града")
@@ -25,8 +42,8 @@ class City(models.Model):
         return self.name
     
     def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name, allow_unicode=True)
+        if not self.slug or any(ord(character) > 127 for character in self.slug):
+            self.slug = ascii_slug(self.slug or self.name)
         super().save(*args, **kwargs)
 
 
@@ -72,8 +89,8 @@ class Category(models.Model):
         return self.name
     
     def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name, allow_unicode=True)
+        if not self.slug or any(ord(character) > 127 for character in self.slug):
+            self.slug = ascii_slug(self.slug or self.name)
         super().save(*args, **kwargs)
     
     def get_absolute_url(self):
@@ -147,11 +164,11 @@ class ProfessionalProfile(models.Model):
         return self.title
     
     def save(self, *args, **kwargs):
-        if not self.slug:
-            base_slug = slugify(self.title, allow_unicode=True)
+        if not self.slug or any(ord(character) > 127 for character in self.slug):
+            base_slug = ascii_slug(self.slug or self.title)
             slug = base_slug
             counter = 1
-            while ProfessionalProfile.objects.filter(slug=slug).exists():
+            while ProfessionalProfile.objects.exclude(pk=self.pk).filter(slug=slug).exists():
                 slug = f"{base_slug}-{counter}"
                 counter += 1
             self.slug = slug
@@ -159,7 +176,7 @@ class ProfessionalProfile(models.Model):
     
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse('professional_detail', kwargs={'slug': self.slug})
+        return reverse('professional_profile', kwargs={'slug': self.slug})
     
     @property
     def images_count(self):
