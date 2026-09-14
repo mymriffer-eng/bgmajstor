@@ -23,8 +23,8 @@ from django.views.static import serve
 # Промяна на admin URL за по-добра сигурност
 urlpatterns = [
     path('supereto/', admin.site.urls),  # Променено от admin/ на supereto/
-    path('', include('core.urls')),
     path('media/<path:path>', serve, {'document_root': settings.MEDIA_ROOT}),
+    path('', include('core.urls')),
 ]
 
 if settings.DEBUG:

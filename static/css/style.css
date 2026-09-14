@@ -163,6 +163,24 @@ nav ul li a:hover::after {
     display: none;
 }
 
+.menu-toggle {
+    display: none;
+    width: 42px;
+    height: 42px;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 6px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    height: 2px;
+    margin: 4px 0;
+    background: var(--text-white);
+}
+
 /* ============================================
    HERO SECTION - Premium Dark Navy
    ============================================ */
@@ -1171,5 +1189,53 @@ footer {
     
     .search-box {
         flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        position: relative;
+        flex-direction: row;
+        padding: 0.9rem 1.25rem;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    nav ul,
+    nav ul.is-open {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 0.5rem 1.25rem 1rem;
+        background: var(--navy-primary);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: var(--shadow-md);
+    }
+
+    nav ul.is-open {
+        display: flex;
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 0.8rem 0;
+        font-size: 1rem;
+    }
+
+    nav ul li a::after {
+        display: none;
+    }
+
+    .nav-cta {
+        margin-top: 0.4rem;
+        padding: 0.8rem 1rem;
+        text-align: center;
     }
 }

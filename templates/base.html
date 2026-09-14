@@ -16,7 +16,10 @@ ce{% load static %}
             <a href="{% url 'home' %}" class="logo">
                 🛠️ BG<span>Maistor</span>
             </a>
-            <ul>
+            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="Отвори менюто">
+                <span></span><span></span><span></span>
+            </button>
+            <ul id="primary-navigation">
                 <li><a href="{% url 'home' %}">Начало</a></li>
                 <li><a href="{% url 'categories_list' %}">Категории</a></li>
                 <li><a href="{% url 'home' %}#how-it-works">Как работи</a></li>
@@ -107,6 +110,23 @@ ce{% load static %}
                         block: 'start'
                     });
                 }
+            });
+        });
+
+        const menuToggle = document.querySelector('.menu-toggle');
+        const primaryNavigation = document.getElementById('primary-navigation');
+
+        menuToggle.addEventListener('click', function() {
+            const isOpen = primaryNavigation.classList.toggle('is-open');
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
+            menuToggle.setAttribute('aria-label', isOpen ? 'Затвори менюто' : 'Отвори менюто');
+        });
+
+        primaryNavigation.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                primaryNavigation.classList.remove('is-open');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.setAttribute('aria-label', 'Отвори менюто');
             });
         });
     </script>
