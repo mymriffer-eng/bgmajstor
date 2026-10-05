@@ -8,7 +8,7 @@ from .models import City, Category, ProfessionalProfile, ProfessionalImage
 from .forms import ClientRegistrationForm, ProfessionalRegistrationForm, ProfessionalProfileForm
 
 def home(request):
-    """Начална страница на BGMaistor"""
+    """Начална страница на BGmajstor.eu"""
     categories = Category.objects.filter(is_active=True)
     cities = City.objects.filter(is_active=True).order_by('order', 'name')
     recent_professionals = ProfessionalProfile.objects.filter(
@@ -119,9 +119,9 @@ def contact(request):
                 messages.error(request, error)
         else:
             # Формирай съобщението
-            email_subject = f'Контакт форма BGMaistor: {subject or "Без тема"}'
+            email_subject = f'Контакт форма BGmajstor.eu: {subject or "Без тема"}'
             email_message = f"""
-Ново съобщение от контактната форма на BGMaistor:
+Ново съобщение от контактната форма на BGmajstor.eu:
 
 Име: {name}
 Имейл: {email}
@@ -165,7 +165,7 @@ def register_client(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, '✓ Успешна регистрация! Добре дошли в BGMaistor!')
+            messages.success(request, '✓ Успешна регистрация! Добре дошли в BGmajstor.eu!')
             return redirect('my_profile')
     else:
         form = ClientRegistrationForm()

@@ -7,7 +7,7 @@ import sys
 import os
 import re
 
-print("=== BGMaistor Emergency Fix ===\n")
+print("=== BGmajstor.eu Emergency Fix ===\n")
 
 # Step 1: Fix Git state
 print("1. Fixing Git state...")

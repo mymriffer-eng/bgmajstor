@@ -1,4 +1,4 @@
-# BGMaistor - Production Deployment Guide (cPanel)
+# BGmajstor.eu - Production Deployment Guide (cPanel)
 
 ## СТЪПКА 1: Подготовка на cPanel
 

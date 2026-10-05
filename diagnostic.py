@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-BGMaistor cPanel Diagnostic Script
+BGmajstor.eu cPanel Diagnostic Script
 Провери какво не работи в deployment-а
 """
 
@@ -9,7 +9,7 @@ import sys
 import os
 
 print("=" * 60)
-print("BGMaistor Production Diagnostic Script")
+print("BGmajstor.eu Production Diagnostic Script")
 print("=" * 60)
 
 # 1. Проверка на Python версия

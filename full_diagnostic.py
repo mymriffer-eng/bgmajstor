@@ -3,7 +3,7 @@
 Comprehensive diagnostic - find exact issue
 """
 
-print("=== BGMaistor Diagnostic ===\n")
+print("=== BGmajstor.eu Diagnostic ===\n")
 
 # 1. Check PyMySQL
 print("1. Checking PyMySQL...")

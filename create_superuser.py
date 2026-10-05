@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Create Django superuser for BGMaistor
+Create Django superuser for BGmajstor.eu
 """
 
 import os
@@ -8,7 +8,7 @@ import sys
 import django
 
 print("=" * 60)
-print("Create Superuser for BGMaistor Admin")
+print("Create Superuser for BGmajstor.eu Admin")
 print("=" * 60)
 
 # Setup Django

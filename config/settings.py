@@ -125,7 +125,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Email Configuration
 # За development - показва имейлите в конзолата
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'noreply@bgmaistor.bg'
+DEFAULT_FROM_EMAIL = 'noreply@bgmajstor.eu'
 
 # За production използвай SMTP:
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -134,7 +134,7 @@ DEFAULT_FROM_EMAIL = 'noreply@bgmaistor.bg'
 # EMAIL_USE_TLS = True
 # EMAIL_HOST_USER = 'your-email@example.com'
 # EMAIL_HOST_PASSWORD = 'your-password'
-# DEFAULT_FROM_EMAIL = 'noreply@bgmaistor.bg'
+# DEFAULT_FROM_EMAIL = 'noreply@bgmajstor.eu'
 
 # Authentication settings
 LOGIN_URL = 'login'

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Seed database with initial categories and cities for BGMaistor
+Seed database with initial categories and cities for BGmajstor.eu
 """
 
 import os
@@ -8,7 +8,7 @@ import sys
 import django
 
 print("=" * 60)
-print("BGMaistor - Initial Data Seed")
+print("BGmajstor.eu - Initial Data Seed")
 print("=" * 60)
 
 # Setup Django
