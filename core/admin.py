@@ -27,7 +27,7 @@ class CategoryAdmin(admin.ModelAdmin):
     
     fieldsets = (
         ('Основна информация', {
-            'fields': ('name', 'slug', 'icon', 'is_active', 'order')
+            'fields': ('name', 'slug', 'icon', 'image', 'is_active', 'order')
         }),
         ('SEO оптимизация', {
             'fields': ('meta_title', 'meta_description', 'h1_title', 'keywords')
