@@ -258,13 +258,6 @@
     </div>
     {% endif %}
     
-    <!-- CTA Section -->
-    <div class="cta-section">
-        <h2>Нуждаете се от {{ category.name }}?</h2>
-        <p>Свържете се с проверени професионалисти за минути</p>
-        <a href="{% url 'contact' %}" class="cta-button">Свържи се с нас</a>
-    </div>
-    
     {% if category.seo_content %}
     <!-- SEO Content Section -->
     <div class="content-section">
@@ -272,15 +265,6 @@
         {{ category.seo_content|safe|linebreaks }}
     </div>
     {% endif %}
-    
-    <!-- How it Works -->
-    <div class="content-section">
-        <h2>Как да намерите майстор за {{ category.name }}?</h2>
-        <p><strong>1. Опишете проекта си</strong> - Кажете ни какво точно ви трябва</p>
-        <p><strong>2. Получете оферти</strong> - Проверени майстори ще ви изпратят оферти за работата</p>
-        <p><strong>3. Изберете най-добрия</strong> - Сравнете цени, рейтинги и отзиви</p>
-        <p><strong>4. Работата е свършена</strong> - Професионалистът изпълнява услугата качествено</p>
-    </div>
     
     {% if related_categories %}
     <!-- Related Categories -->
