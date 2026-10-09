@@ -22,6 +22,7 @@ urlpatterns = [
     path('moyat-profil/', views.my_profile, name='my_profile'),
     re_path(r'^professional/(?P<slug>[\w-]+)/$', views.professional_profile, name='professional_profile'),
     re_path(r'^professional/(?P<slug>[\w-]+)/redaktirai/$', views.edit_professional_profile, name='edit_professional_profile'),
+    re_path(r'^professional/(?P<slug>[\w-]+)/iztrii/$', views.delete_professional_profile, name='delete_professional_profile'),
     re_path(r'^professional/(?P<slug>[\w-]+)/dobavi-snimki/$', views.professional_add_images, name='professional_add_images'),
     path('iztrii-snimka/<int:image_id>/', views.delete_image, name='delete_image'),
     

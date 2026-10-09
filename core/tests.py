@@ -58,4 +58,46 @@ class ProfessionalProfileEditTests(TestCase):
 
 		self.assertEqual(response.status_code, 404)
 
-# Create your tests here.
+
+class ProfessionalProfileDeleteTests(TestCase):
+	def setUp(self):
+		self.user = User.objects.create_user(
+			username='owner-delete@example.com',
+			email='owner-delete@example.com',
+			password='test-password',
+		)
+		self.category = Category.objects.create(
+			name='Маляр',
+			slug='malyar',
+			meta_title='Маляр',
+			meta_description='Малярски услуги.',
+			h1_title='Маляр',
+			description='Малярски услуги.',
+		)
+		self.profile = ProfessionalProfile.objects.create(
+			user=self.user,
+			title='Маляр в Пловдив',
+			slug='malyar-v-plovdiv',
+			description='Описание.',
+			email='owner-delete@example.com',
+			city='Пловдив',
+		)
+		self.profile.categories.add(self.category)
+		self.delete_url = reverse('delete_professional_profile', kwargs={'slug': self.profile.slug})
+
+	def test_owner_can_delete_profile(self):
+		self.client.login(username='owner-delete@example.com', password='test-password')
+
+		response = self.client.post(self.delete_url)
+
+		self.assertRedirects(response, reverse('home'))
+		self.assertFalse(User.objects.filter(pk=self.user.pk).exists())
+		self.assertFalse(ProfessionalProfile.objects.filter(pk=self.profile.pk).exists())
+
+	def test_other_user_cannot_delete_profile(self):
+		other_user = User.objects.create_user('other-delete@example.com', password='test-password')
+		self.client.force_login(other_user)
+
+		response = self.client.post(self.delete_url)
+
+		self.assertEqual(response.status_code, 404)

@@ -326,6 +326,20 @@ def edit_professional_profile(request, slug):
     })
 
 
+@login_required
+def delete_professional_profile(request, slug):
+    """Изтриване на собствен професионален профил и акаунт."""
+    professional = get_object_or_404(ProfessionalProfile, slug=slug, user=request.user)
+
+    if request.method == 'POST':
+        request.user.delete()
+        logout(request)
+        messages.success(request, 'Вашият профил беше изтрит успешно.')
+        return redirect('home')
+
+    return redirect('professional_profile', slug=professional.slug)
+
+
 def user_login(request):
     """Вход в системата"""
     if request.user.is_authenticated:
