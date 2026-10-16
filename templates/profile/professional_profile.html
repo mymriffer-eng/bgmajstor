@@ -64,6 +64,17 @@
         padding: 3rem;
         min-width: 0;
     }
+
+    .profile-main p,
+    .profile-main strong,
+    .profile-main a,
+    .profile-main span,
+    .profile-sidebar,
+    .info-field p,
+    .contact-method-content {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
     
     .profile-sidebar {
         background: #f8fafc;
@@ -466,6 +477,7 @@
     </div>
 </div>
 
+{% if images %}
 <!-- Lightbox Modal -->
 <div class="modal fade" id="lightboxModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 1200px; margin: 1.75rem auto;">
@@ -500,6 +512,7 @@
         </div>
     </div>
 </div>
+{% endif %}
 
 <style>
 .lightbox-nav:hover {
