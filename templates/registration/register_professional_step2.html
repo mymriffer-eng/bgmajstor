@@ -191,6 +191,50 @@
         padding-bottom: 0.5rem;
         border-bottom: 2px solid #e2e8f0;
     }
+
+    @media (max-width: 640px) {
+        .register-hero {
+            padding: 2.5rem 1rem 3rem;
+        }
+
+        .register-hero h1 {
+            font-size: 1.8rem;
+        }
+
+        .steps {
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .form-container {
+            margin: -1.25rem auto 3rem;
+            padding: 0 0.75rem;
+        }
+
+        .form-card {
+            padding: 1.5rem 1rem;
+            border-radius: 16px;
+        }
+
+        .categories-grid {
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+            padding: 0.75rem;
+        }
+
+        .category-checkbox {
+            align-items: flex-start;
+        }
+
+        .category-checkbox input[type="checkbox"] {
+            margin-top: 0.2rem;
+        }
+
+        .btn-submit {
+            padding: 0.9rem 1rem;
+            font-size: 0.95rem;
+        }
+    }
 </style>
 {% endblock %}
 
