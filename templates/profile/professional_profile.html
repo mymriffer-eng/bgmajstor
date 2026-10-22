@@ -478,201 +478,85 @@
 </div>
 
 {% if images %}
-<!-- Lightbox Modal -->
-<div class="modal fade" id="lightboxModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered" style="max-width: 1200px; margin: 1.75rem auto;">
-        <div class="modal-content" style="background: rgba(0,0,0,0.95); border: none; border-radius: 20px; overflow: hidden;">
-            <div class="modal-header border-0" style="padding: 1rem; position: absolute; right: 0; top: 0; z-index: 10; display: flex; justify-content: space-between; width: 100%; left: 0;">
-                <div style="padding: 0.5rem 1rem; display: flex; align-items: center; gap: 1rem;">
-                    <span id="imageCounter" style="color: white; font-weight: 600; font-size: 1rem;"></span>
-                    {% if images.count > 1 %}
-                    <button id="autoPlayBtn" style="background: rgba(255,255,255,0.2); border: none; color: white; padding: 0.4rem 0.8rem; border-radius: 20px; cursor: pointer; backdrop-filter: blur(10px); font-size: 0.9rem; transition: all 0.3s ease;">
-                        <span id="playIcon">⏸</span> <span id="playText">Пауза</span>
-                    </button>
-                    {% endif %}
-                </div>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body text-center position-relative" style="padding: 3rem 1rem; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                <img id="lightboxImage" src="" class="img-fluid" style="max-height: 75vh; max-width: 100%; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); object-fit: contain;">
-                
-                <!-- Navigation Arrows -->
-                {% if images.count > 1 %}
-                <button class="lightbox-nav lightbox-prev" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); border: none; color: white; width: 50px; height: 50px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; backdrop-filter: blur(10px); transition: all 0.3s ease; z-index: 5;">
-                    ‹
-                </button>
-                <button class="lightbox-nav lightbox-next" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); border: none; color: white; width: 50px; height: 50px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; backdrop-filter: blur(10px); transition: all 0.3s ease; z-index: 5;">
-                    ›
-                </button>
-                {% endif %}
-                
-                <!-- Caption -->
-                <div id="imageCaption" style="color: white; margin-top: 1rem; font-size: 1rem; opacity: 0.9;"></div>
-            </div>
-        </div>
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Преглед на снимка" hidden>
+    <button class="lightbox-close" type="button" aria-label="Затвори">&times;</button>
+    <div class="lightbox-meta"><span id="imageCounter"></span></div>
+    <div class="lightbox-stage">
+        {% if images.count > 1 %}
+        <button class="lightbox-nav lightbox-prev" type="button" aria-label="Предишна снимка">&#8249;</button>
+        {% endif %}
+        <img id="lightboxImage" src="" alt="">
+        {% if images.count > 1 %}
+        <button class="lightbox-nav lightbox-next" type="button" aria-label="Следваща снимка">&#8250;</button>
+        {% endif %}
     </div>
+    <p id="imageCaption" class="lightbox-caption"></p>
 </div>
-{% endif %}
 
 <style>
-.lightbox-nav:hover {
-    background: rgba(255,255,255,0.3) !important;
-    transform: translateY(-50%) scale(1.1) !important;
-}
-
-.lightbox-nav:active {
-    transform: translateY(-50%) scale(0.95) !important;
-}
-
-#autoPlayBtn:hover {
-    background: rgba(255,255,255,0.3) !important;
-    transform: scale(1.05);
-}
+.lightbox { position: fixed; inset: 0; z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.25rem; background: rgba(15, 23, 42, 0.96); }
+.lightbox[hidden] { display: none; }
+.lightbox-stage { position: relative; display: flex; align-items: center; justify-content: center; width: min(100%, 1200px); min-height: 0; flex: 1; }
+.lightbox-stage img { display: block; max-width: 100%; max-height: min(78vh, 900px); object-fit: contain; }
+.lightbox-close, .lightbox-nav { display: grid; place-items: center; border: 0; color: #fff; background: rgba(255, 255, 255, 0.16); cursor: pointer; }
+.lightbox-close { position: absolute; top: 1rem; right: 1rem; z-index: 1; width: 44px; height: 44px; border-radius: 6px; font-size: 2rem; line-height: 1; }
+.lightbox-meta { position: absolute; top: 1.75rem; left: 1.5rem; color: #fff; font-weight: 700; }
+.lightbox-nav { position: absolute; top: 50%; width: 48px; height: 48px; border-radius: 50%; font-size: 2.25rem; transform: translateY(-50%); }
+.lightbox-prev { left: 0; }
+.lightbox-next { right: 0; }
+.lightbox-caption { max-width: min(100%, 900px); margin: 0.75rem 0 0; color: #fff; text-align: center; overflow-wrap: anywhere; }
+.lightbox-close:hover, .lightbox-nav:hover { background: rgba(255, 255, 255, 0.3); }
+@media (max-width: 600px) { .lightbox { padding: 1rem; } .lightbox-stage img { max-height: 72vh; } .lightbox-meta { top: 1.25rem; left: 1rem; } .lightbox-close { top: 0.75rem; right: 0.75rem; } .lightbox-nav { width: 42px; height: 42px; font-size: 2rem; } }
 </style>
 
 <script>
-const images = [
-    {% for image in images %}
-    { url: "{{ image.image.url }}", caption: "{{ image.caption|escapejs }}" }{% if not forloop.last %},{% endif %}
-    {% endfor %}
-];
-
+const galleryImages = [{% for image in images %}{ url: "{{ image.image.url }}", caption: "{{ image.caption|escapejs }}" }{% if not forloop.last %}, {% endif %}{% endfor %}];
+const lightbox = document.getElementById('lightbox');
+const lightboxImage = document.getElementById('lightboxImage');
+const imageCounter = document.getElementById('imageCounter');
+const imageCaption = document.getElementById('imageCaption');
 let currentImageIndex = 0;
-let lightboxModal = null;
-let autoPlayInterval = null;
-let isPlaying = true;
+let touchStartX = 0;
+
+function showLightboxImage(index) {
+    currentImageIndex = (index + galleryImages.length) % galleryImages.length;
+    const image = galleryImages[currentImageIndex];
+    lightboxImage.src = image.url;
+    lightboxImage.alt = image.caption || 'Снимка от профила';
+    imageCounter.textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
+    imageCaption.textContent = image.caption || '';
+}
 
 function openLightbox(index) {
-    currentImageIndex = index;
-    showImage(currentImageIndex);
-    
-    if (!lightboxModal) {
-        lightboxModal = new bootstrap.Modal(document.getElementById('lightboxModal'));
-    }
-    lightboxModal.show();
-    
-    // Стартирай автоматично въртене след кратко забавяне
-    setTimeout(() => {
-        if (images.length > 1) {
-            startAutoPlay();
-        }
-    }, 500);
+    showLightboxImage(index);
+    lightbox.hidden = false;
+    document.body.style.overflow = 'hidden';
+    lightbox.querySelector('.lightbox-close').focus();
 }
 
-function showImage(index) {
-    if (images.length === 0) return;
-    
-    // Update image
-    document.getElementById('lightboxImage').src = images[index].url;
-    
-    // Update counter
-    document.getElementById('imageCounter').textContent = `${index + 1} / ${images.length}`;
-    
-    // Update caption
-    const caption = images[index].caption || 'Без описание';
-    document.getElementById('imageCaption').textContent = caption;
+function closeLightbox() {
+    lightbox.hidden = true;
+    document.body.style.overflow = '';
 }
 
-function nextImage() {
-    currentImageIndex = (currentImageIndex + 1) % images.length;
-    showImage(currentImageIndex);
-}
+function nextImage() { showLightboxImage(currentImageIndex + 1); }
+function previousImage() { showLightboxImage(currentImageIndex - 1); }
 
-function prevImage() {
-    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-    showImage(currentImageIndex);
-}
-
-function startAutoPlay() {
-    if (autoPlayInterval) return; // Вече работи
-    
-    isPlaying = true;
-    updatePlayButton();
-    
-    autoPlayInterval = setInterval(() => {
-        nextImage();
-    }, 3000); // Превърти на всеки 3 секунди
-}
-
-function stopAutoPlay() {
-    if (autoPlayInterval) {
-        clearInterval(autoPlayInterval);
-        autoPlayInterval = null;
-    }
-    isPlaying = false;
-    updatePlayButton();
-}
-
-function toggleAutoPlay() {
-    if (isPlaying) {
-        stopAutoPlay();
-    } else {
-        startAutoPlay();
-    }
-}
-
-function updatePlayButton() {
-    const playIcon = document.getElementById('playIcon');
-    const playText = document.getElementById('playText');
-    
-    if (playIcon && playText) {
-        if (isPlaying) {
-            playIcon.textContent = '⏸';
-            playText.textContent = 'Пауза';
-        } else {
-            playIcon.textContent = '▶';
-            playText.textContent = 'Пусни';
-        }
-    }
-}
-
-// Keyboard navigation
-document.addEventListener('keydown', function(e) {
-    const modal = document.getElementById('lightboxModal');
-    if (modal.classList.contains('show')) {
-        if (e.key === 'ArrowRight') {
-            stopAutoPlay(); // Спри автоматичното при ръчна навигация
-            nextImage();
-        } else if (e.key === 'ArrowLeft') {
-            stopAutoPlay(); // Спри автоматичното при ръчна навигация
-            prevImage();
-        } else if (e.key === 'Escape') {
-            lightboxModal.hide();
-        } else if (e.key === ' ') { // Spacebar за play/pause
-            e.preventDefault();
-            toggleAutoPlay();
-        }
-    }
-});
-
-// Спри автоматичното въртене при затваряне на modal
-document.getElementById('lightboxModal').addEventListener('hidden.bs.modal', function () {
-    stopAutoPlay();
-});
-
-// Event listeners за бутоните
-document.addEventListener('DOMContentLoaded', function() {
-    const prevBtn = document.querySelector('.lightbox-prev');
-    const nextBtn = document.querySelector('.lightbox-next');
-    const autoPlayBtn = document.getElementById('autoPlayBtn');
-    
-    if (prevBtn) {
-        prevBtn.addEventListener('click', function() {
-            stopAutoPlay();
-            prevImage();
-        });
-    }
-    
-    if (nextBtn) {
-        nextBtn.addEventListener('click', function() {
-            stopAutoPlay();
-            nextImage();
-        });
-    }
-    
-    if (autoPlayBtn) {
-        autoPlayBtn.addEventListener('click', toggleAutoPlay);
-    }
+lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+lightbox.querySelector('.lightbox-prev')?.addEventListener('click', previousImage);
+lightbox.querySelector('.lightbox-next')?.addEventListener('click', nextImage);
+lightbox.addEventListener('click', event => { if (event.target === lightbox) closeLightbox(); });
+lightbox.addEventListener('touchstart', event => { touchStartX = event.changedTouches[0].screenX; }, { passive: true });
+lightbox.addEventListener('touchend', event => {
+    const distance = event.changedTouches[0].screenX - touchStartX;
+    if (Math.abs(distance) > 50 && galleryImages.length > 1) distance < 0 ? nextImage() : previousImage();
+}, { passive: true });
+document.addEventListener('keydown', event => {
+    if (lightbox.hidden) return;
+    if (event.key === 'Escape') closeLightbox();
+    if (event.key === 'ArrowRight' && galleryImages.length > 1) nextImage();
+    if (event.key === 'ArrowLeft' && galleryImages.length > 1) previousImage();
 });
 </script>
+{% endif %}
 {% endblock %}
